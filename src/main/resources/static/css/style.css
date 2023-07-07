@@ -1,0 +1,275 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom right, lightgreen, darkgreen);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    overflow: hidden;
+}
+
+header {
+    padding: 10px;
+}
+
+header h1 {
+    color: white;
+    font-size: 2em;
+    font-weight: 900;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+#outerDiv {
+    width: 90%;
+    margin: auto;
+    display: flex;
+}
+
+#o1 {
+    max-width: 1200px
+    min-width: 800px;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+}
+
+#d1 {
+    width: 50%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0em 1em 0em 1em;
+}
+
+#d2 {
+    width: 50%;
+    height: 85vh;
+    background-color: white;
+    border-radius: 0.5em;
+    padding: 0em 1em 0em 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+#d3 {
+    flex: 3;
+    background-color: white;
+    border-radius: 0.5em;
+    padding: 0.5em 2em 1em 2em;
+    margin: 0em 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+#d4 {
+    color: white;
+    flex: 1;
+    background-color: green;
+    border-radius: 0.5em;
+    padding: 0.5em 3em;
+    margin: 1em 0.5em 0em 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    color: darkgreen;
+    font-weight: bold;
+    font-size: 1em;
+    display: flex;
+}
+
+.title>h1 {
+    font-weight: 900;
+    font-size: 1.5em;
+}
+
+.item {
+    display: flex;
+    border-bottom: solid 0.1em grey;
+    padding: 1em 0em 0em 0em;
+    position: relative;
+}
+
+.item .icons {
+    display: none;
+}
+
+.item:hover .icons {
+
+    display: block;
+    margin: auto 0.5rem auto auto;
+    font-size: small;
+}
+
+.money-sign {
+    color: darkgreen;
+    font-weight: 800;
+    font-size: 0.9em;
+    margin: auto;
+}
+
+.item>div>input {
+   border: none;
+   background: none;
+}
+
+.item>div>input:focus {
+     outline: none;
+     border-color: transparent;
+     box-shadow: none;
+}
+
+.input-title {
+    color: green;
+    font-weight: 100;
+    font-size: 0.8em;
+    letter-spacing: 0.1em;
+    width: 100%;
+    text-overflow: ellipsis;
+}
+
+.input-value {
+    color: darkgreen;
+    font-weight: 800;
+    font-size: 0.9em;
+    margin: auto;
+    letter-spacing: 0.1em;
+    width: 100%;
+}
+
+.input-value::before {
+    content: "£";
+}
+
+.items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.incomes {
+    max-height: 42vh;
+}
+
+.expenses {
+
+}
+
+.item-row:hover {
+    font-size: 1.1rem;
+}
+
+.input-row>div:nth-of-type(1) {
+    flex: 2;
+}
+
+.input-row>div:nth-of-type(2) {
+    flex: 1;
+}
+
+.total {
+    display: flex;
+    padding: 0.5em 1em 0em 0em;
+    /*border-bottom: solid 0.1em grey;
+    border-top: solid 0.1em grey;*/
+}
+
+.total>h1:nth-child(1) {
+   color: lightgreen;
+   font-weight: 900;
+   font-size: 1.2em;
+   flex: 2;
+   letter-spacing: 0.1em;
+}
+
+.total>h1:nth-child(2) {
+    color: darkgreen;
+    font-weight: 800;
+    font-size: 0.9em;
+    margin: auto;
+}
+
+.total>h1:nth-child(3) {
+   color: darkgreen;
+   font-weight: 800;
+   font-size: 0.9em;
+   flex: 1;
+   margin: auto;
+}
+
+.white {
+    color: white;
+}
+
+.totals {
+    display: flex;
+    color: white;
+}
+
+.totals-title {
+   font-weight: 900;
+   font-size: 1em;
+   flex: 1;
+   letter-spacing: 0.2em;
+}
+
+.totals-value {
+   font-weight: 800;
+   font-size: 1rem;
+   flex: 1;
+}
+
+.minus {
+    padding-right: 0.5rem;
+    margin: auto;
+}
+
+.minus:hover {
+    font-size: larger
+}
+
+.one-rem {
+    font-size: 1rem;
+    padding-right: 0.1rem;
+}
+
+.total-underline {
+   border-bottom: solid 0.1em lightgrey;
+}
+
+footer {
+    background-color: #f1f1f1;
+    padding: 10px;
+    text-align: center;
+}
+
+.add {
+    display: flex;
+}
+
+.add-btn {
+    margin: 1rem 0.5rem 0.5rem 0.3rem;
+}
+
+.add-btn:hover {
+    cursor: pointer;
+    font-size: large;
+}
+
+/*We can have all input fields and just disable them once the element loses focus and it can only become enabled again once the user hovers over it and selects edit*/

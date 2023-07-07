@@ -1,0 +1,30 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:15.1-alpine
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tester
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+
+#  springboot:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    restart: always
+#    depends_on:
+#      - postgres
+#    ports:
+#      - 8080:8080
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/tester
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+
+#volumes:
+#  postgres_data:
