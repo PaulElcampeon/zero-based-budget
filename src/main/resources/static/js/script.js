@@ -28,6 +28,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const expenseValueInput = document.getElementById("expense-name-value")
     const expenseTitleInput = document.getElementById("input-expense-title")
 
+    //Hidden totals div
+    const incomeTotal5 = document.getElementById("income-total-5")
+    const expenseTotal5 = document.getElementById("expense-total-5")
+    const incomeAndExpenseTotal5 = document.getElementById("income-expense-total-5")
+
+    const m1 = document.getElementById("m1");
+    const m2 = document.getElementById("m2");
+
     // Function to render the expenses list
     function renderExpenses() {
         expenseList.innerHTML = ""
@@ -225,15 +233,27 @@ document.addEventListener("DOMContentLoaded", function() {
     function calculateTotals() {
         const incomeTotal = incomes.reduce((a, b) => a + b.cost, 0).toFixed(2)
 
-        incomeTotal1.innerHTML = incomeTotal;
-        incomeTotal2.innerHTML = incomeTotal;
+        incomeTotal1.innerHTML = incomeTotal
+        incomeTotal2.innerHTML = incomeTotal
 
         const expenseTotal = expenses.reduce((a, b) => a + b.cost, 0).toFixed(2)
 
-        expenseTotal1.innerHTML = expenseTotal;
-        expenseTotal2.innerHTML = expenseTotal;
+        expenseTotal1.innerHTML = expenseTotal
+        expenseTotal2.innerHTML = expenseTotal
 
-        incomeAndExpenseTotal.innerHTML = (incomeTotal - expenseTotal).toFixed(2)
+        const incomeMinusExpenseTotal =  (incomeTotal - expenseTotal).toFixed(2)
+
+        incomeAndExpenseTotal.innerHTML =  Math.abs(incomeMinusExpenseTotal).toFixed(2)
+
+        incomeTotal5.innerHTML = incomeTotal
+        expenseTotal5.innerHTML = expenseTotal
+
+        incomeAndExpenseTotal5.innerHTML = Math.abs(incomeMinusExpenseTotal).toFixed(2)
+
+        const totalSymbol = incomeMinusExpenseTotal<0? "-£" : "£";
+
+        m1.innerHTML = totalSymbol
+        m2.innerHTML = totalSymbol
     }
 
     function removeNonNumericCharacters(inputString) {

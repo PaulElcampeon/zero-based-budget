@@ -3,11 +3,12 @@ body {
     margin: 0;
     padding: 0;
     background-image: linear-gradient(to bottom right, lightgreen, darkgreen);
+    background-attachment: fixed;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100vh;
-    overflow: hidden;
+    box-sizing: border-box;
 }
 
 header {
@@ -16,7 +17,7 @@ header {
 
 header h1 {
     color: white;
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: 900;
     margin: 0;
     padding: 0;
@@ -35,10 +36,8 @@ main {
 }
 
 #o1 {
-    max-width: 1200px
-    min-width: 800px;
-    width: 100%;
-    height: 100%;
+    max-width: 1200px;
+    height: 85vh;
     margin: auto;
     display: flex;
 }
@@ -49,25 +48,26 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0em 1em 0em 1em;
+    margin: 0rem 1rem 0rem 1rem;
 }
 
 #d2 {
     width: 50%;
     height: 85vh;
     background-color: white;
-    border-radius: 0.5em;
-    padding: 0em 1em 0em 1em;
+    border-radius: 0.5rem;
+    padding: 0rem 1rem 0rem 1rem;
     display: flex;
     flex-direction: column;
 }
 
 #d3 {
+    height: 20%;
     flex: 3;
     background-color: white;
-    border-radius: 0.5em;
-    padding: 0.5em 2em 1em 2em;
-    margin: 0em 0.5em;
+    border-radius: 0.5rem;
+    padding: 0.5rem 2rem 1rem 2rem;
+    margin: 0rem 0.5rem;
     display: flex;
     flex-direction: column;
 }
@@ -76,30 +76,34 @@ main {
     color: white;
     flex: 1;
     background-color: green;
-    border-radius: 0.5em;
-    padding: 0.5em 3em;
-    margin: 1em 0.5em 0em 0.5em;
+    border-radius: 0.5rem;
+    padding: 0.5rem 3rem;
+    margin: 1rem 0.5rem 0rem 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
+#d5 {
+    display: none;
+}
+
 .title {
     color: darkgreen;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 1rem;
     display: flex;
 }
 
 .title>h1 {
     font-weight: 900;
-    font-size: 1.5em;
+    font-size: 1.5rem;
 }
 
 .item {
     display: flex;
-    border-bottom: solid 0.1em grey;
-    padding: 1em 0em 0em 0em;
+    border-bottom: solid 0.1rem grey;
+    padding: 1rem 0rem 0rem 0rem;
     position: relative;
 }
 
@@ -117,8 +121,8 @@ main {
 .money-sign {
     color: darkgreen;
     font-weight: 800;
-    font-size: 0.9em;
-    margin: auto;
+    font-size: 0.9rem;
+    margin: auto auto auto 0.5rem;
 }
 
 .item>div>input {
@@ -135,8 +139,8 @@ main {
 .input-title {
     color: green;
     font-weight: 100;
-    font-size: 0.8em;
-    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
     width: 100%;
     text-overflow: ellipsis;
 }
@@ -144,9 +148,9 @@ main {
 .input-value {
     color: darkgreen;
     font-weight: 800;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     margin: auto;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.1rem;
     width: 100%;
 }
 
@@ -164,7 +168,7 @@ main {
 }
 
 .incomes {
-    max-height: 42vh;
+  /*max-height: 400px;*/
 }
 
 .expenses {
@@ -185,30 +189,28 @@ main {
 
 .total {
     display: flex;
-    padding: 0.5em 1em 0em 0em;
-    /*border-bottom: solid 0.1em grey;
-    border-top: solid 0.1em grey;*/
+    padding: 0.5rem 1rem 0rem 0rem;
 }
 
 .total>h1:nth-child(1) {
    color: lightgreen;
    font-weight: 900;
-   font-size: 1.2em;
+   font-size: 1.2rem;
    flex: 2;
-   letter-spacing: 0.1em;
+   letter-spacing: 0.1rem;
 }
 
 .total>h1:nth-child(2) {
     color: darkgreen;
     font-weight: 800;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     margin: auto;
 }
 
 .total>h1:nth-child(3) {
    color: darkgreen;
    font-weight: 800;
-   font-size: 0.9em;
+   font-size: 0.9rem;
    flex: 1;
    margin: auto;
 }
@@ -224,9 +226,9 @@ main {
 
 .totals-title {
    font-weight: 900;
-   font-size: 1em;
+   font-size: 1rem;
    flex: 1;
-   letter-spacing: 0.2em;
+   letter-spacing: 0.2rem;
 }
 
 .totals-value {
@@ -250,7 +252,7 @@ main {
 }
 
 .total-underline {
-   border-bottom: solid 0.1em lightgrey;
+   border-bottom: solid 0.1rem lightgrey;
 }
 
 footer {
@@ -272,4 +274,54 @@ footer {
     font-size: large;
 }
 
+@media screen and (max-width: 800px) and (orientation: portrait) {
+    body {
+        overflow-y: auto;
+        height: inherit;
+    }
+
+   #o1 {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #d1 {
+        margin: 1rem 0rem 1rem 0rem;
+        height: inherit;
+        width: 58%;
+        min-width: 350px;
+    }
+
+    #d2 {
+        height: inherit;
+        min-width: 300px;
+    }
+
+    #d4 {
+        display: none;
+    }
+
+    #d5 {
+        color: white;
+        /*flex: 1;*/
+        background-color: green;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.5rem;
+        margin: 1rem 0.5rem 0rem 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 1rem 0rem 1rem 0rem;
+        width: 50%;
+        min-width: 300px;
+    }
+
+    #income-list {
+        max-height: 250px;
+    }
+
+    #expense-list {
+        max-height: 400px;
+    }
+}
 /*We can have all input fields and just disable them once the element loses focus and it can only become enabled again once the user hovers over it and selects edit*/
