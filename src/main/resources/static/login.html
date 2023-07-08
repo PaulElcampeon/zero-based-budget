@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign Up Form</title>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: linear-gradient(to bottom right, lightgreen, darkgreen);
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+    }
+
+    header h1 {
+        color: white;
+        font-size: 2rem;
+        font-weight: 900;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 100px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: darkgreen;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .form-footer a {
+      text-decoration: none;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+
+<body>
+<header>
+    <h1>ZERO-BASED BUDGET</h1>
+</header>
+<div class="container" id="login-form">
+    <h1>Login</h1>
+    <form>
+        <input type="text" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <input id="login-btn" type="submit" value="Login">
+    </form>
+    <div class="form-footer">
+        Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a>
+    </div>
+</div>
+
+<div class="container" style="display: none;" id="signup-form">
+    <h1>Sign Up</h1>
+    <form>
+        <input type="text" id="signup-email" placeholder="Email" required>
+        <input type="password" id="signup-password" placeholder="Password" required>
+        <input type="password" id="signup-confirm-password" placeholder="Confirm Password" required>
+        <input id="register-btn" type="submit" value="Sign Up">
+    </form>
+    <div class="form-footer">
+        Already have an account? <a href="#" onclick="toggleForm()">Login</a>
+    </div>
+</div>
+
+<script>
+    function toggleForm() {
+      var loginForm = document.getElementById("login-form");
+      var signupForm = document.getElementById("signup-form");
+
+      if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+      } else {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+      }
+    }
+
+    const signup_email =  document.getElementById("signup-email")
+    const signup_password =  document.getElementById("signup-password")
+    const signup_confirm_password =  document.getElementById("signup-confirm-password")
+
+    const login_email =  document.getElementById("login-email")
+    const login_password =  document.getElementById("login-password")
+
+
+    const register_btn =  document.getElementById("register-btn")
+    const login_btn =  document.getElementById("login-btn")
+
+    register_btn.addEventListener("click", (event) => {
+        event.preventDefault()
+        if (!validateRegisteredFields()) {
+            alert("Fill in all fields appropriately");
+            return;
+        }
+
+        const url = '../api/v1/user/create';
+
+        const data = {
+          email: signup_email.value,
+          password: signup_password.value
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Response:', result);
+            toggleForm()
+        })
+          .catch(error => {
+            console.error('Error:', error);
+        });
+
+    })
+
+    login_btn.addEventListener("click", (event) => {
+        event.preventDefault()
+        if (!validateLoginFields()) {
+            alert("Fill in all fields appropriately");
+            return;
+        }
+
+        const url = '../api/v1/auth/authenticate';
+
+        const data = {
+          email: login_email.value,
+          password: login_password.value
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Response:', result);
+            storeToken(result.token)
+            test1();
+        })
+          .catch(error => {
+            console.error('Error:', error);
+        });
+
+    })
+
+    function validateRegisteredFields() {
+        if (!validateEmail(signup_email.value)) {
+            return false;
+        }
+
+        if (!isNotEmpty(signup_password.value)) {
+            return false;
+        }
+
+        if (!isNotEmpty(signup_confirm_password.value)) {
+            return false;
+        }
+
+        if (signup_password.value !== signup_confirm_password.value) {
+            return false;
+        }
+
+        return true;
+    }
+
+    function validateLoginFields() {
+        if (!validateEmail(login_email.value)) {
+            return false;
+        }
+
+        if (!isNotEmpty(login_password.value)) {
+            return false;
+        }
+
+        return true;
+   }
+
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function isNotEmpty(value) {
+        return value.trim() !== "";
+    }
+
+    function storeToken(token) {
+        localStorage.setItem("tokie", token)
+    }
+
+    function retrieveToken() {
+        return localStorage.getItem("tokie")
+    }
+
+    function test1() {
+
+     const url = '../api/v1/auth/test/2';
+
+        const data = {
+          email: login_email.value,
+          password: login_password.value
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + retrieveToken()
+            },
+            body: JSON.stringify(data)
+        })
+          .then(response => response.json())
+          .then(result => {
+            console.log('Response:', result);
+        })
+          .catch(error => {
+            console.error('Error:', error);
+        });
+
+    }
+
+  </script>
+</body>
+
+</html>

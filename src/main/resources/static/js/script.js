@@ -264,6 +264,10 @@ document.addEventListener("DOMContentLoaded", function() {
         input.value = removeNonNumericCharacters(input.value)
     }
 
+    function logout() {
+        localStorage.removeItem("tokie")
+    }
+
     // Add event listener to the add button
     incomeAddBtn.addEventListener("click", addIncome);
     expenseAddBtn.addEventListener("click", addExpense);

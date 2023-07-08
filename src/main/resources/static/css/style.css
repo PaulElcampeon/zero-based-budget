@@ -31,6 +31,7 @@ main {
 
 #outerDiv {
     width: 90%;
+    max-width: 1200px;
     margin: auto;
     display: flex;
 }
@@ -45,10 +46,10 @@ main {
 #d1 {
     width: 50%;
     height: 85vh;
+    border-radius: 0.5rem;
+    padding: 0rem 1rem 0rem 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: 0rem 1rem 0rem 1rem;
 }
 
 #d2 {
@@ -66,8 +67,8 @@ main {
     flex: 3;
     background-color: white;
     border-radius: 0.5rem;
-    padding: 0.5rem 2rem 1rem 2rem;
-    margin: 0rem 0.5rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    /*margin: 0rem 0.5rem;*/
     display: flex;
     flex-direction: column;
 }
@@ -167,14 +168,6 @@ main {
     overflow-x: hidden;
 }
 
-.incomes {
-  /*max-height: 400px;*/
-}
-
-.expenses {
-
-}
-
 .item-row:hover {
     font-size: 1.1rem;
 }
@@ -243,7 +236,8 @@ main {
 }
 
 .minus:hover {
-    font-size: larger
+    font-size: larger;
+    cursor: pointer;
 }
 
 .one-rem {
@@ -277,24 +271,28 @@ footer {
 @media screen and (max-width: 800px) and (orientation: portrait) {
     body {
         overflow-y: auto;
-        height: inherit;
     }
 
-   #o1 {
+    #outerDiv {
         flex-direction: column;
         align-items: center;
+        height: 100%;
     }
 
     #d1 {
+        background-color: white;
         margin: 1rem 0rem 1rem 0rem;
         height: inherit;
-        width: 58%;
-        min-width: 350px;
+        min-width: 300px;
     }
 
     #d2 {
         height: inherit;
         min-width: 300px;
+    }
+
+    #d3 {
+        padding: initial;
     }
 
     #d4 {
@@ -303,7 +301,6 @@ footer {
 
     #d5 {
         color: white;
-        /*flex: 1;*/
         background-color: green;
         border-radius: 0.5rem;
         padding: 0.5rem 1.5rem;

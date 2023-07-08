@@ -30,12 +30,14 @@ public class SecurityConfig {
             "/js/**",
             "/icons/**",
             "/",
+            "/login",
+            "/login.html",
             "/index.html",
             "/icons8-cash-64.png",
             "/icons8-house-64.png",
             "/generated.html",
-            "/api/v1/auth/**",
-            "/api/v1/user/**",
+            "/api/v1/auth/authenticate",
+            "/api/v1/user/create",
             "/api/v1/budget/test"
     };
 

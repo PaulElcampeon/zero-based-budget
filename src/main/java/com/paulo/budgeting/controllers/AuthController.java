@@ -3,6 +3,7 @@ package com.paulo.budgeting.controllers;
 
 import com.paulo.budgeting.config.JwtUtil;
 import com.paulo.budgeting.dto.AuthRequest;
+import com.paulo.budgeting.dto.AuthResponse;
 import com.paulo.budgeting.service.UserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -35,9 +38,9 @@ public class AuthController {
         final UserDetails user = userDetailsService.loadUserByUsername(authRequest.getEmail());
 
         if (user != null) {
-            return ResponseEntity.ok(jwtUtil.generateToken(user));
+            return ResponseEntity.ok(new AuthResponse(jwtUtil.generateToken(user)));
         }
 
-        return ResponseEntity.status(400).body("Some error has occured");
+        return ResponseEntity.status(400).body(Optional.empty());
     }
 }
