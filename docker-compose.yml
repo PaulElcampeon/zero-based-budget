@@ -15,7 +15,7 @@ services:
 #  springboot:
 #    build:
 #      context: ./
-#      dockerfile: Dockerfile
+#      dockerfile: OldDockerfile
 #    restart: always
 #    depends_on:
 #      - postgres

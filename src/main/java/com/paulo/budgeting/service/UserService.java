@@ -17,7 +17,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo repo;
-
     private final PasswordEncoder passwordEncoder;
 
     public User addUser(CreateUserRequest createUserRequest) {

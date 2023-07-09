@@ -14,7 +14,7 @@
 	<name>Budget Zone</name>
 	<description>Budgeting App</description>
 	<properties>
-		<java.version>19</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
