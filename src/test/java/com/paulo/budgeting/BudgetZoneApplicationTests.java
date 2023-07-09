@@ -1,5 +1,7 @@
 package com.paulo.budgeting;
 
+import com.paulo.budgeting.domain.MoneyItem;
+import com.paulo.budgeting.domain.enums.MoneyItemType;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.junit.jupiter.api.Test;
@@ -21,10 +23,10 @@ class BudgetZoneApplicationTests {
 	void contextLoads() throws IOException {
 		FileWriter out = new FileWriter("book_new.csv");
 
-		List<Expense> expenseList = new ArrayList<>();
+		List<MoneyItem> expenseList = new ArrayList<>();
 
-		expenseList.add(Expense.builder().cost(BigDecimal.ONE).title("Harriet").build());
-		expenseList.add(Expense.builder().cost(BigDecimal.TEN).title("Namdy").build());
+		expenseList.add(MoneyItem.builder().type(MoneyItemType.EXPENSE).value(BigDecimal.ONE).title("Harriet").build());
+		expenseList.add(MoneyItem.builder().type(MoneyItemType.EXPENSE).value(BigDecimal.TEN).title("Namdy").build());
 
 		StringWriter sw = new StringWriter();
 
@@ -38,7 +40,7 @@ class BudgetZoneApplicationTests {
 				try {
 //					csvFormat.print(out);
 
-					printer.printRecord(expense1.getTitle(), expense1.getCost().toString());
+					printer.printRecord(expense1.getTitle(), expense1.getValue().toString());
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -57,10 +59,10 @@ class BudgetZoneApplicationTests {
 	void contextLoads1() throws IOException {
 //		FileWriter out = new FileWriter("book_new.csv");
 
-		List<Expense> expenseList = new ArrayList<>();
+		List<MoneyItem> expenseList = new ArrayList<>();
 
-		expenseList.add(Expense.builder().cost(BigDecimal.ONE).title("Harriet").build());
-		expenseList.add(Expense.builder().cost(BigDecimal.TEN).title("Namdy").build());
+		expenseList.add(MoneyItem.builder().type(MoneyItemType.EXPENSE).value((BigDecimal.ONE)).title("Harriet").build());
+		expenseList.add(MoneyItem.builder().type(MoneyItemType.EXPENSE).value(BigDecimal.TEN).title("Namdy").build());
 
 		StringWriter sw = new StringWriter();
 
@@ -74,7 +76,7 @@ class BudgetZoneApplicationTests {
 				try {
 //					csvFormat.print(out);
 
-					printer.printRecord(expense1.getTitle(), expense1.getCost().toString());
+					printer.printRecord(expense1.getTitle(), expense1.getValue().toString());
 
 				} catch (IOException e) {
 					e.printStackTrace();

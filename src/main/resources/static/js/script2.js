@@ -1,8 +1,4 @@
-//document.addEventListener("DOMContentLoaded", function() {
-    // Code to be executed when the document is loaded
-    console.log("Document loaded!");
 
-    // Expenses data
     var expenses = [];
     const expenseList = document.getElementById("expense-list")
     const expenseInputRow = document.getElementById("expense-input-row")
@@ -11,7 +7,7 @@
     const expenseTotal1 = document.getElementById("expense-total-1")
     const expenseTotal2 = document.getElementById("expense-total-2")
 
-    // Incomes data
+
     var incomes = [];
     const incomeList = document.getElementById("income-list")
     const incomeInputRow = document.getElementById("income-input-row")
@@ -28,7 +24,6 @@
     const expenseValueInput = document.getElementById("expense-name-value")
     const expenseTitleInput = document.getElementById("input-expense-title")
 
-    //Hidden totals div
     const incomeTotal5 = document.getElementById("income-total-5")
     const expenseTotal5 = document.getElementById("expense-total-5")
     const incomeAndExpenseTotal5 = document.getElementById("income-expense-total-5")
@@ -36,7 +31,6 @@
     const m1 = document.getElementById("m1");
     const m2 = document.getElementById("m2");
 
-    // Function to render the expenses list
     function renderExpenses() {
         expenseList.innerHTML = ""
 
@@ -105,8 +99,6 @@
         calculateTotals();
     }
 
-
-    // Function to render the incomes list
     function renderIncomes() {
         incomeList.innerHTML = ""
 
@@ -175,7 +167,6 @@
         calculateTotals();
     }
 
-    // Function to add a new income
     function addIncome() {
       const incomeNameInput = document.getElementById("input-income-title");
 
@@ -268,7 +259,6 @@
         localStorage.removeItem("tokie")
     }
 
-    // Add event listener to the add button
     incomeAddBtn.addEventListener("click", addIncome);
     expenseAddBtn.addEventListener("click", addExpense);
 
@@ -279,4 +269,3 @@
     expenseValueInput.addEventListener("change", addExpense);
     incomeTitleInput.addEventListener("change", addIncome);
     expenseTitleInput.addEventListener("change", addExpense);
-//});
