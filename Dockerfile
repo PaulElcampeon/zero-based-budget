@@ -17,8 +17,8 @@ RUN mvn dependency:go-offline -B
 RUN mvn package -DskipTests
 
 # Use Eclipse Temurin JDK 19 and Alpine Linux as the base image for the final image
-#FROM eclipse-temurin:19-alpine
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:19-alpine
+#FROM openjdk:17-jdk-slim
 
 ## Set the working directory inside the container
 #WORKDIR /app
@@ -30,4 +30,5 @@ COPY --from=build target/*.jar app.jar
 EXPOSE 8080
 
 # Set the command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-Dspring.profiles.active=dev", "-jar", "app.jar"]
+#CMD ["java", "-Djwt_secret=${jwt_secret} -Dspring.datasource.username=${SPRING_DATASOURCE_USERNAME} -Dspring.datasource.password=${SPRING_DATASOURCE_PASSWORD} -Dspring.datasource.url=${SPRING_DATASOURCE_URL}", "-jar", "app.jar"]
