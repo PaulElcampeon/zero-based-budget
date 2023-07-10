@@ -33,8 +33,6 @@ public class SecurityConfig {
             "/login",
             "/login.html",
             "/index.html",
-            "/icons8-cash-64.png",
-            "/icons8-house-64.png",
             "/generated.html",
             "/api/v1/auth/authenticate",
             "/api/v1/user/create",
