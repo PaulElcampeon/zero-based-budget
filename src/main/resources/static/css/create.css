@@ -12,16 +12,12 @@ body {
 }
 
 header {
-    padding: 10px;
+    padding: 10px 0rem;
 }
 
-header h1 {
-    color: white;
-    font-size: 2rem;
-    font-weight: 900;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+.header {
+    display: flex;
+    margin: auto;
 }
 
 main {
@@ -29,76 +25,52 @@ main {
     flex: 1;
 }
 
-#outerDiv {
+.black {
+    color: black;
+}
+
+.page-title {
+    color: white;
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0;
+    padding: 0;
+}
+
+.page-title:hover {
+    cursor:pointer;
+}
+
+#outer-container {
     width: 90%;
     max-width: 1200px;
     margin: auto;
     display: flex;
 }
 
-#o1 {
-    max-width: 1200px;
-    height: 85vh;
-    margin: auto;
-    display: flex;
-}
-
-#d1 {
+#income-and-total-section {
     width: 50%;
-    height: 85vh;
     border-radius: 0.5rem;
     padding: 0rem 1rem 0rem 1rem;
     display: flex;
     flex-direction: column;
 }
 
-#d2 {
-    width: 50%;
-    height: 85vh;
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 0rem 1rem 0rem 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-#d3 {
-    height: 20%;
-    flex: 3;
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem 1rem 1rem;
-    /*margin: 0rem 0.5rem;*/
-    display: flex;
-    flex-direction: column;
-}
-
-#d4 {
-    color: white;
-    flex: 1;
-    background-color: green;
-    border-radius: 0.5rem;
-    padding: 0.5rem 3rem;
-    margin: 1rem 0.5rem 0rem 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-#d5 {
+#hidden-total-section {
     display: none;
 }
 
-.title {
-    color: darkgreen;
-    font-weight: bold;
-    font-size: 1rem;
+.title-header {
     display: flex;
 }
 
-.title>h1 {
-    font-weight: 900;
-    font-size: 1.5rem;
+.title-image-container {
+    display:flex;
+}
+
+.title-image {
+    width:60%;
+    margin:auto 0em auto 0em;
 }
 
 .item {
@@ -113,7 +85,6 @@ main {
 }
 
 .item:hover .icons {
-
     display: block;
     margin: auto 0.5rem auto auto;
     font-size: small;
@@ -126,6 +97,13 @@ main {
     margin: auto auto auto 0.5rem;
 }
 
+.totals-money-sign {
+    font-weight: 800;
+    margin: auto auto auto 0.5rem;
+    font-size: 1rem;
+    padding-right: 0.1rem;
+}
+
 .item>div>input {
    border: none;
    background: none;
@@ -135,6 +113,10 @@ main {
      outline: none;
      border-color: transparent;
      box-shadow: none;
+}
+
+.item>div>input:hover {
+    font-weight: 900;
 }
 
 .input-title {
@@ -166,10 +148,18 @@ main {
     justify-content: flex-start;
     overflow-y: auto;
     overflow-x: hidden;
+    padding: 0rem;
 }
 
 .item-row:hover {
     font-size: 1.1rem;
+    background: #f2fff1;
+    box-shadow:0 5px 20px rgb(0 0 0 / 0.2);
+}
+
+.input-row:hover {
+    background: #f2fff1;
+    box-shadow:0 5px 20px rgb(0 0 0 / 0.2);
 }
 
 .input-row>div:nth-of-type(1) {
@@ -183,6 +173,13 @@ main {
 .total {
     display: flex;
     padding: 0.5rem 1rem 0rem 0rem;
+    border-bottom: 0.1rem solid grey;
+}
+
+.total:hover {
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
+    border-radius: 0.5rem;
+    padding: 0rem 0.5rem;
 }
 
 .total>h1:nth-child(1) {
@@ -196,25 +193,28 @@ main {
 .total>h1:nth-child(2) {
     color: darkgreen;
     font-weight: 800;
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin: auto;
 }
 
 .total>h1:nth-child(3) {
    color: darkgreen;
    font-weight: 800;
-   font-size: 0.9rem;
+   font-size: 1rem;
    flex: 1;
    margin: auto;
-}
-
-.white {
-    color: white;
 }
 
 .totals {
     display: flex;
     color: white;
+    padding: 0rem 0.2rem;
+    border-radius: 0.5rem;
+}
+
+.totals:hover {
+    background: #389338;
+    border: 0.1rem solid white;
 }
 
 .totals-title {
@@ -230,6 +230,18 @@ main {
    flex: 1;
 }
 
+.totals-with-top-underline {
+    display: flex;
+    color: white;
+    padding: 0rem 1rem;
+    border-radius: 0rem;
+    border-top: solid 0.1rem lightgrey;
+}
+
+.margin-bottom-one-rem {
+    margin-bottom: 1rem;
+}
+
 .minus {
     padding-right: 0.5rem;
     margin: auto;
@@ -238,15 +250,6 @@ main {
 .minus:hover {
     font-size: larger;
     cursor: pointer;
-}
-
-.one-rem {
-    font-size: 1rem;
-    padding-right: 0.1rem;
-}
-
-.total-underline {
-   border-bottom: solid 0.1rem lightgrey;
 }
 
 footer {
@@ -268,47 +271,102 @@ footer {
     font-size: large;
 }
 
-@media screen and (max-width: 800px) and (orientation: portrait) {
+/*INCOME*/
+
+#income-section {
+    flex: 3;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.income-title {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: darkgreen;
+    margin: 0;
+}
+
+/*EXPENSES*/
+
+#expense-section {
+    width: 50%;
+    height: 85vh;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.expense-title {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: darkgreen;
+    margin: 0;
+}
+
+.expense-total-container {
+    margin-bottom: 0.8rem;
+}
+
+
+/*TOTALS*/
+
+#totals-section {
+    color: white;
+    flex: 1;
+    background-color: #298329;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media (max-width: 800px), (min-aspect-ratio: 2/1) {
     body {
         overflow-y: auto;
     }
 
-    #outerDiv {
+    #outer-container {
         flex-direction: column;
         align-items: center;
         height: 100%;
     }
 
-    #d1 {
+    #income-and-total-section {
         background-color: white;
         margin: 1rem 0rem 1rem 0rem;
         height: inherit;
         min-width: 300px;
     }
 
-    #d2 {
+    #expense-section {
         height: inherit;
         min-width: 300px;
     }
 
-    #d3 {
+    #income-section {
         padding: initial;
     }
 
-    #d4 {
+    #totals-section {
         display: none;
     }
 
-    #d5 {
+    #hidden-total-section {
         color: white;
-        background-color: green;
+        background-color: #298329;
         border-radius: 0.5rem;
-        padding: 0.5rem 1.5rem;
-        margin: 1rem 0.5rem 0rem 0.5rem;
+        padding: 0.5rem 1rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 1rem 0rem 1rem 0rem;
+        margin: 1rem 0rem;
         width: 50%;
         min-width: 300px;
     }
@@ -318,7 +376,10 @@ footer {
     }
 
     #expense-list {
-        max-height: 400px;
+        max-height: 300px;
+    }
+
+    .income-total-container {
+        margin-bottom: 0.8rem;
     }
 }
-/*We can have all input fields and just disable them once the element loses focus and it can only become enabled again once the user hovers over it and selects edit*/

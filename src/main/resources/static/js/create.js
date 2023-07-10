@@ -1,8 +1,7 @@
-//document.addEventListener("DOMContentLoaded", function() {
-    // Code to be executed when the document is loaded
-    console.log("Document loaded!");
+document.getElementById("page-title-id").addEventListener("click", (event) => {
+    location.href = "../";
+})
 
-    // Expenses data
     var expenses = [];
     const expenseList = document.getElementById("expense-list")
     const expenseInputRow = document.getElementById("expense-input-row")
@@ -11,7 +10,6 @@
     const expenseTotal1 = document.getElementById("expense-total-1")
     const expenseTotal2 = document.getElementById("expense-total-2")
 
-    // Incomes data
     var incomes = [];
     const incomeList = document.getElementById("income-list")
     const incomeInputRow = document.getElementById("income-input-row")
@@ -28,7 +26,6 @@
     const expenseValueInput = document.getElementById("expense-name-value")
     const expenseTitleInput = document.getElementById("input-expense-title")
 
-    //Hidden totals div
     const incomeTotal5 = document.getElementById("income-total-5")
     const expenseTotal5 = document.getElementById("expense-total-5")
     const incomeAndExpenseTotal5 = document.getElementById("income-expense-total-5")
@@ -36,15 +33,14 @@
     const m1 = document.getElementById("m1");
     const m2 = document.getElementById("m2");
 
-    // Function to render the expenses list
     function renderExpenses() {
         expenseList.innerHTML = ""
 
         for (let i = 0; i < expenses.length; i++) {
             let expense = expenses[i]
 
-            let div_1 = document.createElement("div")
-            div_1.className = "item input-row item-row"
+            let li = document.createElement("li")
+            li.className = "item input-row item-row"
 
             let div_2 = document.createElement("div")
 
@@ -76,12 +72,12 @@
             let minus = document.createElement("i")
             minus.className = "fa-solid fa-minus minus"
 
-            div_1.appendChild(div_2)
-            div_1.appendChild(h1_money_sign)
-            div_1.appendChild(div_3)
-            div_1.appendChild(minus)
+            li.appendChild(div_2)
+            li.appendChild(h1_money_sign)
+            li.appendChild(div_3)
+            li.appendChild(minus)
 
-            expenseList.appendChild(div_1)
+            expenseList.appendChild(li)
 
             div_3.addEventListener("click", (event) => input_expense_value.disabled = false)
             div_2.addEventListener("click", (event) => input_expense_title.disabled = false)
@@ -105,16 +101,14 @@
         calculateTotals();
     }
 
-
-    // Function to render the incomes list
     function renderIncomes() {
         incomeList.innerHTML = ""
 
         for (let i = 0; i < incomes.length; i++) {
             let income = incomes[i]
 
-            let div_1 = document.createElement("div")
-            div_1.className = "item input-row item-row"
+            let li = document.createElement("li")
+            li.className = "item input-row item-row"
 
             let div_2 = document.createElement("div")
 
@@ -146,12 +140,12 @@
             let minus = document.createElement("i")
             minus.className = "fa-solid fa-minus minus"
 
-            div_1.appendChild(div_2)
-            div_1.appendChild(h1_money_sign)
-            div_1.appendChild(div_3)
-            div_1.appendChild(minus)
+            li.appendChild(div_2)
+            li.appendChild(h1_money_sign)
+            li.appendChild(div_3)
+            li.appendChild(minus)
 
-            incomeList.appendChild(div_1)
+            incomeList.appendChild(li)
 
             div_3.addEventListener("click", (event) => input_income_value.disabled = false)
             div_2.addEventListener("click", (event) => input_income_title.disabled = false)
@@ -175,7 +169,6 @@
         calculateTotals();
     }
 
-    // Function to add a new income
     function addIncome() {
       const incomeNameInput = document.getElementById("input-income-title");
 
@@ -243,6 +236,18 @@
 
         const incomeMinusExpenseTotal =  (incomeTotal - expenseTotal).toFixed(2)
 
+        incomeAndExpenseTotal.classList.remove("black")
+        incomeAndExpenseTotal5.classList.remove("black")
+        m1.classList.remove("black")
+        m2.classList.remove("black")
+
+        if (incomeMinusExpenseTotal < 0) {
+            incomeAndExpenseTotal.classList.add("black")
+            incomeAndExpenseTotal5.classList.add("black")
+            m1.classList.add("black")
+            m2.classList.add("black")
+        }
+
         incomeAndExpenseTotal.innerHTML =  Math.abs(incomeMinusExpenseTotal).toFixed(2)
 
         incomeTotal5.innerHTML = incomeTotal
@@ -268,7 +273,6 @@
         localStorage.removeItem("tokie")
     }
 
-    // Add event listener to the add button
     incomeAddBtn.addEventListener("click", addIncome);
     expenseAddBtn.addEventListener("click", addExpense);
 
@@ -279,4 +283,3 @@
     expenseValueInput.addEventListener("change", addExpense);
     incomeTitleInput.addEventListener("change", addIncome);
     expenseTitleInput.addEventListener("change", addExpense);
-//});

@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class StaticController {
 
     @GetMapping("/")
-    public String landing() {
-        return "/index.html";
+    public String home() {
+        return "/home.html";
+    }
+
+    @GetMapping("/create")
+    public String create() {
+        return "/create.html";
     }
 
     @GetMapping("/login")

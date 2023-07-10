@@ -1,31 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZERO-BASED BUDGET</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free zero based budgeting app">
+    <meta name="keywords"
+          content="budgeting, budget, saving,money, finance, dave ramsey, debt, debt free, baby steps, zero based budget">
+    <meta name="author" content="Just a guy trying to help">
+    <meta name="robots" content="index">
+    <meta property="og:title" content="Zero Based Budgeting">
+    <meta property="og:description" content="Help you with your zero based budget">
+    <meta property="og:image" content="https://www.zero-based-budget.co.uk/images/zbd.png">
+    <meta property="og:url" content="https://www.zero-based-budget.co.uk">
+    <link rel="canonical" href="https://www.zero-based-budget.co.uk">
+    <link rel="stylesheet" type="text/css" href="css/create-min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
     <link rel="icon" href="icons/favicon-32x32.png" sizes="32x32" type="image/png">
     <link rel="icon" href="icons/favicon-16x16.png" sizes="16x16" type="image/png">
 </head>
 <body>
-<header>
-    <h1>ZERO-BASED BUDGET</h1>
+<header class="header">
+    <h1 id="page-title-id" class="page-title">ZERO-BASED BUDGET</h1>
 </header>
 <main>
-    <div id="outerDiv">
-        <div id="d1">
-            <div id="d3">
-                <div class="title">
-                    <div style="display:flex;">
-                        <img style="width:60%; margin:auto 0em auto 0em;" src="icons/icons8-cash-64.png"
+    <div id="outer-container">
+        <section id="income-and-total-section">
+            <section id="income-section">
+                <header class="title-header">
+                    <div class="title-image-container">
+                        <img class="title-image" src="icons/icons8-cash-64.png"
                              alt="money icon"/>
                     </div>
-                    <h1>INCOME</h1>
-                </div>
-                <div id="income-list" class="items incomes">
-                    <div id="income-input-row" class="item input-row">
+                    <h1 class="income-title">INCOME</h1>
+                </header>
+                <ul id="income-list" class="items incomes">
+                    <li id="income-input-row" class="item input-row">
                         <div>
                             <input class="input-title" id="input-income-title" type="text" pattern="[A-Za-z0-9]+"
                                    placeholder="INCOME">
@@ -35,45 +46,46 @@
                             <input class="input-value" id="income-name-value" type="text" pattern="[0-9]+"
                                    placeholder="0">
                         </div>
-                    </div>
+                    </li>
                     <div id="income-add+btn" class="add">
                         <i id="add-btn-income" class="fa fa-plus add-btn" aria-hidden="true"></i>
                     </div>
-                </div>
-                <div class="total">
+                </ul>
+                <div class="total income-total-container">
                     <h1>TOTAL</h1>
                     <h1>£</h1>
                     <h1 id="income-total-1">0</h1>
                 </div>
-            </div>
-            <div id="d4">
+            </section>
+            <section id="totals-section">
                 <div class="totals">
                     <h1 class="totals-title">INCOME</h1>
-                    <h1 class="money-sign white one-rem">£</h1>
+                    <h1 class="totals-money-sign">£</h1>
                     <h1 class="totals-value" id="income-total-2">0</h1>
                 </div>
-                <div class="totals total-underline">
+                <div class="totals margin-bottom-one-rem">
                     <h1 class="totals-title">EXPENSE</h1>
-                    <h1 class="money-sign white one-rem">£</h1>
+                    <h1 class="totals-money-sign">£</h1>
                     <h1 class="totals-value" id="expense-total-2">0</h1>
                 </div>
-                <div class="totals">
+                <div class="totals-with-top-underline">
                     <h1 class="totals-title">=</h1>
-                    <h1 id="m1" class="money-sign white one-rem">£</h1>
+                    <h1 id="m1" class="totals-money-sign">£</h1>
                     <h1 class="totals-value" id="income-expense-total">0</h1>
                 </div>
-            </div>
-        </div>
-        <div id="d2">
-            <div class="title">
-                <div style="display:flex;">
-                    <img style="width:60%; margin:auto 0em auto 0em;" src="icons/icons8-house-64.png"
+            </section>
+        </section>
+        </section>
+        <section id="expense-section">
+            <header class="title-header">
+                <div class="title-image-container">
+                    <img class="title-image" src="icons/icons8-house-64.png"
                          alt="house icon"/>
                 </div>
-                <h1>EXPENSES</h1>
-            </div>
-            <div id="expense-list" class="items expenses">
-                <div id="expense-input-row" class="item input-row">
+                <h1 class="expense-title">EXPENSES</h1>
+            </header>
+            <ul id="expense-list" class="items expenses">
+                <li id="expense-input-row" class="item input-row">
                     <div>
                         <input class="input-title" id="input-expense-title" type="text" pattern="[A-Za-z0-9]+"
                                placeholder="EXPENSE">
@@ -83,36 +95,36 @@
                         <input class="input-value" id="expense-name-value" type="text" pattern="[0-9]+"
                                placeholder="0">
                     </div>
-                </div>
+                </li>
                 <div id="expense-add+btn" class="add">
                     <i id="add-btn-expense" class="fa fa-plus add-btn" aria-hidden="true"></i>
                 </div>
-            </div>
+            </ul>
             <div class="total">
                 <h1>TOTAL</h1>
                 <h1>£</h1>
                 <h1 id="expense-total-1">0</h1>
             </div>
-        </div>
-        <div id="d5">
+        </section>
+        <section id="hidden-total-section">
             <div class="totals">
                 <h1 class="totals-title">INCOME</h1>
-                <h1 class="money-sign white one-rem">£</h1>
+                <h1 class="totals-money-sign">£</h1>
                 <h1 class="totals-value" id="income-total-5">0</h1>
             </div>
-            <div class="totals total-underline">
+            <div class="totals margin-bottom-one-rem">
                 <h1 class="totals-title">EXPENSE</h1>
-                <h1 class="money-sign white one-rem">£</h1>
+                <h1 class="totals-money-sign">£</h1>
                 <h1 class="totals-value" id="expense-total-5">0</h1>
             </div>
-            <div class="totals">
+            <div class="totals-with-top-underline">
                 <h1 class="totals-title">=</h1>
-                <h1 id="m2" class="money-sign white one-rem">£</h1>
+                <h1 id="m2" class="totals-money-sign">£</h1>
                 <h1 class="totals-value" id="income-expense-total-5">0</h1>
             </div>
-        </div>
+        </section>
     </div>
 </main>
-<script src="js/script.js"></script>
+<script src="js/create-min.js"></script>
 </body>
 </html>
