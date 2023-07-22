@@ -40,6 +40,7 @@ main {
     padding: 5rem;
     color: white;
     min-width: 400px;
+    max-width: 1200px;
 }
 
 .main-container {
@@ -150,15 +151,16 @@ main {
     }
 
     .card-info {
-        font-size: 3vw;
+        font-size: 1rem;
     }
 
     .create-section-message {
-        font-size: 5vw;
+        font-size: 1rem;
+
     }
 
     .create-btn {
-        font-size: 5vw;
+        font-size: 2rem;
     }
 
     .create-section {
