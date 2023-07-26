@@ -26,6 +26,8 @@ public class MoneyItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "position", nullable = false)
+    private String position;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "value", nullable = false)

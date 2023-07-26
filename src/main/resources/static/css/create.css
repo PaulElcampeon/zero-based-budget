@@ -23,7 +23,18 @@ header {
 main {
     display: flex;
     flex: 1;
+    justify-content: center;
+    min-width: 450px;
 }
+
+.m1 {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    max-width: 1200px;
+    ;
+}
+
 
 .black {
     color: black;
@@ -38,22 +49,36 @@ main {
 }
 
 .page-title:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 #outer-container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
+    width: 100%;
+    margin: 0 auto;
     display: flex;
+    padding: 1rem 0;
+    flex: 1;
+}
+
+#budget-name {
+    font-size: 1rem;
+    padding: 0.6rem;
+    border-radius: 0.5rem;
+    border-color: lightgrey;
+    color: green;
+    font-weight: 100;
+    letter-spacing: 0.1rem;
+    text-overflow: ellipsis;
+    flex: 1;
+    margin-right: 0.5rem;
 }
 
 #income-and-total-section {
-    width: 50%;
     border-radius: 0.5rem;
-    padding: 0rem 1rem 0rem 1rem;
+    padding: 0rem 1rem 0rem 0rem;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 #hidden-total-section {
@@ -62,15 +87,40 @@ main {
 
 .title-header {
     display: flex;
+    align-items: center;
 }
 
 .title-image-container {
-    display:flex;
+    display: flex;
+    padding-right: 1rem;
+}
+
+.save-image-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.save-image-container>button {
+    width: 40px;
+    height: 40px;
+    margin: auto 0em;
+    border: none;
+    background-image: url('../icons/floppy-save-icon.png');
+    background-size: cover;
+    background-color: initial;
+}
+
+.save-image-container>button:hover {
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
+    border-radius: 0.5rem;
+    margin: 0.2rem;
 }
 
 .title-image {
-    width:60%;
-    margin:auto 0em auto 0em;
+    width: 40px;
+    height: 40px;
+    margin: auto 0em;
 }
 
 .item {
@@ -105,14 +155,14 @@ main {
 }
 
 .item>div>input {
-   border: none;
-   background: none;
+    border: none;
+    background: none;
 }
 
 .item>div>input:focus {
-     outline: none;
-     border-color: transparent;
-     box-shadow: none;
+    outline: none;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 .item>div>input:hover {
@@ -154,12 +204,12 @@ main {
 .item-row:hover {
     font-size: 1.1rem;
     background: #f2fff1;
-    box-shadow:0 5px 20px rgb(0 0 0 / 0.2);
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
 }
 
 .input-row:hover {
     background: #f2fff1;
-    box-shadow:0 5px 20px rgb(0 0 0 / 0.2);
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
 }
 
 .input-row>div:nth-of-type(1) {
@@ -183,11 +233,11 @@ main {
 }
 
 .total>h1:nth-child(1) {
-   color: lightgreen;
-   font-weight: 900;
-   font-size: 1.2rem;
-   flex: 2;
-   letter-spacing: 0.1rem;
+    color: lightgreen;
+    font-weight: 900;
+    font-size: 1.2rem;
+    flex: 2;
+    letter-spacing: 0.1rem;
 }
 
 .total>h1:nth-child(2) {
@@ -198,11 +248,11 @@ main {
 }
 
 .total>h1:nth-child(3) {
-   color: darkgreen;
-   font-weight: 800;
-   font-size: 1rem;
-   flex: 1;
-   margin: auto;
+    color: darkgreen;
+    font-weight: 800;
+    font-size: 1rem;
+    flex: 1;
+    margin: auto;
 }
 
 .totals {
@@ -218,16 +268,16 @@ main {
 }
 
 .totals-title {
-   font-weight: 900;
-   font-size: 1rem;
-   flex: 1;
-   letter-spacing: 0.2rem;
+    font-weight: 900;
+    font-size: 1rem;
+    flex: 1;
+    letter-spacing: 0.2rem;
 }
 
 .totals-value {
-   font-weight: 800;
-   font-size: 1rem;
-   flex: 1;
+    font-weight: 800;
+    font-size: 1rem;
+    flex: 1;
 }
 
 .totals-with-top-underline {
@@ -277,7 +327,7 @@ footer {
     flex: 3;
     background-color: white;
     border-radius: 0.5rem;
-    padding: 0.5rem 1rem 1rem 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -292,13 +342,12 @@ footer {
 /*EXPENSES*/
 
 #expense-section {
-    width: 50%;
-    height: 85vh;
     background-color: white;
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .expense-title {
@@ -327,7 +376,7 @@ footer {
     justify-content: center;
 }
 
-@media (max-width: 800px), (min-aspect-ratio: 2/1) {
+@media (max-width: 800px) and (min-aspect-ratio: 2/1) {
     body {
         overflow-y: auto;
     }
@@ -346,7 +395,6 @@ footer {
     }
 
     #expense-section {
-        height: inherit;
         min-width: 300px;
     }
 
@@ -367,7 +415,7 @@ footer {
         flex-direction: column;
         justify-content: center;
         margin: 1rem 0rem;
-        width: 50%;
+        width: 100%;
         min-width: 300px;
     }
 
@@ -381,5 +429,84 @@ footer {
 
     .income-total-container {
         margin-bottom: 0.8rem;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        overflow-y: auto;
+    }
+
+    #outer-container {
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+
+    #income-and-total-section {
+        background-color: white;
+        margin: 1rem 0rem 1rem 0rem;
+        width: 100%;
+        min-width: 300px;
+        padding: initial;
+        flex: initial;
+    }
+
+    #expense-section {
+        width: 100%;
+        min-width: 300px;
+        padding: initial;
+    }
+
+    #expense-section>* {
+        margin: 0 1rem;
+    }
+
+    #expense-section>.total {
+        margin-bottom: 1rem;
+    }
+
+    #income-section {
+        padding: initial;
+        margin: 0 1rem;
+    }
+
+    #totals-section {
+        display: none;
+    }
+
+    #hidden-total-section {
+        color: white;
+        background-color: #298329;
+        border-radius: 0.5rem;
+        padding: initial;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 1rem 0rem;
+        width: 100%;
+        min-width: 300px;
+    }
+
+    #hidden-total-section>* {
+        margin: 0 1rem;
+    }
+
+    #income-list {
+        max-height: 120px;
+    }
+
+    #expense-list {
+        max-height: 300px;
+    }
+
+    .income-total-container {
+        margin-bottom: 0.8rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .page-title {
+        font-size: 1.5rem;
     }
 }

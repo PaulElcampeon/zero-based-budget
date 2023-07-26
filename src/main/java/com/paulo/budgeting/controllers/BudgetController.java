@@ -4,6 +4,8 @@ import com.paulo.budgeting.domain.Budget;
 import com.paulo.budgeting.domain.MoneyItem;
 import com.paulo.budgeting.domain.enums.MoneyItemType;
 import com.paulo.budgeting.dto.ExportBudgetRequest;
+import com.paulo.budgeting.dto.SaveBudgetRequest;
+import com.paulo.budgeting.dto.SaveBudgetResponse;
 import com.paulo.budgeting.service.BudgetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -36,6 +38,14 @@ public class BudgetController {
                 .header(HttpHeaders.CONTENT_TYPE, "text/csv; charset=UTF-8")
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.csv\"")
                 .body(csvAsString);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<SaveBudgetResponse> save(@RequestBody SaveBudgetRequest request, Principal principal) throws IOException {
+        Budget budget = budgetService.save(request, principal.getName());
+        SaveBudgetResponse saveBudgetResponse = new SaveBudgetResponse(budget.getId());
+
+        return ResponseEntity.ok().body(saveBudgetResponse);
     }
 
     @GetMapping("/test")
