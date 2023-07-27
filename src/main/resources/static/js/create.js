@@ -34,6 +34,7 @@ const m1 = document.getElementById("m1");
 const m2 = document.getElementById("m2");
 
 const saveBtn = document.getElementById("save-btn");
+const logoutBtn = document.getElementById("logout-btn");
 
 const  budgetName = document.getElementById("budget-name")
 
@@ -274,11 +275,25 @@ function removeNonNumericCharactersFromInputValue(input) {
 }
 
 function logout() {
-    localStorage.removeItem("tokie")
+    removeFromStorage("budget");
+    removeFromStorage("tokie");
+    location.href = '../';
 }
 
 function storeToken(token) {
     localStorage.setItem("tokie", token)
+}
+
+function storeValueInStorage(key, value) {
+    localStorage.setItem(key, value)
+}
+
+function removeFromStorage(key) {
+    localStorage.getItem(key)
+}
+
+function retrieveFromStorage(key) {
+    localStorage.removeItem(key)
 }
 
 function retrieveToken() {
@@ -286,43 +301,54 @@ function retrieveToken() {
 }
 
 function getBudgetName() {
-    return budgetName.value? budgetName.value : "";
+    return budgetName.value? budgetName.value : getCurrentDateInDDMMYYYYFormat();
     
 }
 
+function getCurrentDateInDDMMYYYYFormat() {
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const year = currentDate.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
 function save() {
+    const budgetName = getBudgetName();
+    expenses = expenses.map((value, index)=> {value.position = index; return value});
+    incomes = incomes.map((value, index)=> {value.position = index; return value});
+
+    const requestBody = {
+        budgetName: budgetName,
+        expenses: expenses,
+        incomes: incomes
+    }
+    
+    if (!retrieveToken()) {
+        storeValueInStorage("budget", requestBody)
+        localStorage.href = "../login"
+    }
+
     console.log("saving ........")
-    // let budgetName
-    // expenses = expenses.map((value, index)=> {value.position = index; return value});
-    // incomes = incomes.map((value, index)=> {value.position = index; return value});
+    console.log(requestBody);
 
-    // console.log(expenses);
-    // console.log(incomes);
+    const url = "../ap1/v1/budget/save"
 
-    // const requestBody = {
-    //     expenses: expenses,
-    //     incomes: incomes
-    // }
-
-    // const url = "../ap1/v1/budget/save"
-
-    // fetch(url, {
-    //     method: "POST",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    // })
-    //     .then(response => response.json())
-    //     .then(result => {
-    //     })
-    //     .catch(error => {
-    //         console.error('Error:', error);
-    //     });
-
-
-
-
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": retrieveToken()
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 incomeAddBtn.addEventListener("click", addIncome);
@@ -336,3 +362,4 @@ expenseValueInput.addEventListener("change", addExpense);
 incomeTitleInput.addEventListener("change", addIncome);
 expenseTitleInput.addEventListener("change", addExpense);
 saveBtn.addEventListener("click", save)
+logoutBtn.addEventListener("click", logout)
