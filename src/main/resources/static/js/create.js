@@ -430,9 +430,9 @@ function addBudgetsToScreen() {
         })
     }
 
-    for (let i=0; i < 10; i++) {
-        budgetListElement.appendChild(createBudgetIcon({title:"id"+i}));
-    }
+    // for (let i=0; i < 10; i++) {
+    //     budgetListElement.appendChild(createBudgetIcon({title:"id"+i}));
+    // }
 }
 
 function addEventListeners() {
