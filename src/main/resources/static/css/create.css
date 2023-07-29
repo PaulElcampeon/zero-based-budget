@@ -1,616 +1,603 @@
+@charset "UTF-8";
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: linear-gradient(to bottom right, lightgreen, darkgreen);
-    background-attachment: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(to bottom right, lightgreen, darkgreen);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  box-sizing: border-box;
 }
 
 header {
-    padding: 10px 0rem;
+  padding: 10px 0rem;
 }
 
 .header {
-    display: flex;
+  display: flex;
 }
 
 main {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    min-width: 450px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  min-width: 450px;
 }
 
 #budget-list-container {
-    margin: 1rem;
+  margin: 1rem;
 }
 
 .budget-list-title {
-    text-align: center;
-    color: white;
-    padding: 1rem;
-    font-weight: 900;
+  text-align: center;
+  color: white;
+  padding: 1rem;
+  font-weight: 900;
 }
 
 #budget-list {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    height: fit-content; 
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
-#budget-list>div {
-    height: fit-content;
-    padding: 1rem;
+#budget-list > div {
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 1rem;
 }
 
-#budget-list>div>div {
-    display: flex;
-    margin: auto;
-    justify-content: center;
+#budget-list > div > div {
+  display: flex;
+  margin: auto;
+  justify-content: center;
 }
 
-#budget-list>div:hover {
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
-    border-radius: 0.5rem;
-    margin: 0.1rem;
+#budget-list > div:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  margin: 0.1rem;
 }
 
-#budget-list>div>div>img {
-    width: 80px;
-    height: 80px;
+#budget-list > div > div > img {
+  width: 80px;
+  height: 80px;
 }
 
-#budget-list>div>p {
-    color: white;
-    width: 150px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: center;
-    font-weight: 700;
+#budget-list > div > p {
+  color: white;
+  width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  font-weight: 700;
 }
 
 #budget-sheet {
-    display: none;
-    flex-direction: column;
-    width: 80%;
-    max-width: 1200px;
+  display: none;
+  flex-direction: column;
+  width: 80%;
+  max-width: 1200px;
 }
 
 .black {
-    color: black;
+  color: black;
 }
 
 .page-title {
-    color: white;
-    font-size: 2rem;
-    font-weight: 900;
-    margin: 0;
-    padding: 0;
-    flex: 1;
-    text-align: center;
-    display: flex;
-    justify-content: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 #page-title-id:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #page-title-id {
-    margin: 0;
+  margin: 0;
 }
 
 #outer-container {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    padding: 1rem 0;
-    flex: 1;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  padding: 1rem 0;
+  flex: 1;
 }
 
 #budget-sheet {
-    display: none;
+  display: none;
 }
 
 #budget-name {
-    font-size: 1rem;
-    padding: 0.6rem;
-    border-radius: 0.5rem;
-    border-color: lightgrey;
-    color: green;
-    font-weight: 100;
-    letter-spacing: 0.1rem;
-    text-overflow: ellipsis;
-    flex: 1;
-    margin-right: 0.5rem;
+  font-size: 1rem;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border-color: lightgrey;
+  color: green;
+  font-weight: 100;
+  letter-spacing: 0.1rem;
+  text-overflow: ellipsis;
+  flex: 1;
+  margin-right: 0.5rem;
 }
 
 #income-and-total-section {
-    border-radius: 0.5rem;
-    padding: 0rem 1rem 0rem 0rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  border-radius: 0.5rem;
+  padding: 0rem 1rem 0rem 0rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 #hidden-total-section {
-    display: none;
+  display: none;
 }
 
 .title-header {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .title-image-container {
-    display: flex;
-    padding-right: 1rem;
+  display: flex;
+  padding-right: 1rem;
 }
 
 .save-image-container {
-    display: flex;
-    flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
 }
-
-.save-image-container>button {
-    width: 40px;
-    height: 40px;
-    margin: auto 0em;
-    border: none;
-    background-image: url('../icons/floppy-save-icon.png');
-    background-size: cover;
-    background-color: initial;
+.save-image-container > button {
+  width: 40px;
+  height: 40px;
+  margin: auto 0em;
+  border: none;
+  background-image: url("../icons/floppy-save-icon.png");
+  background-size: cover;
+  background-color: initial;
 }
-
-.save-image-container>button:hover {
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
-    border-radius: 0.5rem;
-    margin: 0.2rem;
+.save-image-container > button:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  margin: 0.2rem;
+}
+.save-image-container:hover::after {
+  display: block;
+  content: "save";
+  position: absolute;
+  top: 40px;
+  left: 17px;
+  font-size: 0.7rem;
+  background: mintcream;
+  padding: 0.2rem 0.5rem;
 }
 
 .back-to-budgets-container {
-    display: flex;
-    flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
+  position: relative;
 }
-
-.back-to-budgets-container>button {
-    width: 40px;
-    height: 40px;
-    margin: auto 0em;
-    border: none;
-    background-image: url('../icons/sheet-2-icon.png');
-    background-size: cover;
-    background-color: initial;
+.back-to-budgets-container > button {
+  width: 40px;
+  height: 40px;
+  margin: auto 0em;
+  border: none;
+  background-image: url("../icons/sheet-2-icon.png");
+  background-size: cover;
+  background-color: initial;
 }
-
-.back-to-budgets-container>button:hover {
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
-    border-radius: 0.5rem;
-    margin: 0.2rem;
+.back-to-budgets-container > button:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  margin: 0.2rem;
+}
+.back-to-budgets-container:hover::after {
+  display: block;
+  content: "budgets";
+  position: absolute;
+  top: 40px;
+  left: 17px;
+  font-size: 0.7rem;
+  background: mintcream;
+  padding: 0.2rem 0.5rem;
 }
 
 .logout-image-container {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
-
-.logout-image-container>button {
-    width: 40px;
-    height: 40px;
-    margin: auto 0em;
-    border: none;
-    background-image: url('../icons/shutdown-icon.png');
-    background-size: cover;
-    background-color: initial;
+.logout-image-container > button {
+  width: 40px;
+  height: 40px;
+  margin: auto 0em;
+  border: none;
+  background-image: url("../icons/shutdown-icon.png");
+  background-size: cover;
+  background-color: initial;
 }
-
-.logout-image-container>button:hover {
-    cursor: pointer;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
-    border-radius: 0.5rem;
-    width: 38px;
-    height: 38px;
+.logout-image-container > button:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  width: 38px;
+  height: 38px;
 }
 
 .title-image {
-    width: 40px;
-    height: 40px;
-    margin: auto 0em;
+  width: 40px;
+  height: 40px;
+  margin: auto 0em;
 }
 
 .item {
-    display: flex;
-    border-bottom: solid 0.1rem grey;
-    padding: 1rem 0rem 0rem 0rem;
-    position: relative;
+  display: flex;
+  border-bottom: solid 0.1rem grey;
+  padding: 1rem 0rem 0rem 0rem;
+  position: relative;
 }
 
 .item .icons {
-    display: none;
+  display: none;
 }
 
 .item:hover .icons {
-    display: block;
-    margin: auto 0.5rem auto auto;
-    font-size: small;
+  display: block;
+  margin: auto 0.5rem auto auto;
+  font-size: small;
 }
 
 .money-sign {
-    color: darkgreen;
-    font-weight: 800;
-    font-size: 0.9rem;
-    margin: auto auto auto 0.5rem;
+  color: darkgreen;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin: auto auto auto 0.5rem;
 }
 
 .totals-money-sign {
-    font-weight: 800;
-    margin: auto auto auto 0.5rem;
-    font-size: 1rem;
-    padding-right: 0.1rem;
+  font-weight: 800;
+  margin: auto auto auto 0.5rem;
+  font-size: 1rem;
+  padding-right: 0.1rem;
 }
 
-.item>div>input {
-    border: none;
-    background: none;
+.item > div > input {
+  border: none;
+  background: none;
 }
 
-.item>div>input:focus {
-    outline: none;
-    border-color: transparent;
-    box-shadow: none;
-}
-
-.item>div>input:hover {
-    font-weight: 900;
+.item > div > input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .input-title {
-    color: green;
-    font-weight: 100;
-    font-size: 0.8rem;
-    letter-spacing: 0.1rem;
-    width: 100%;
-    text-overflow: ellipsis;
+  color: green;
+  font-weight: 100;
+  font-size: 0.8rem;
+  letter-spacing: 0.1rem;
+  width: 100%;
+  text-overflow: ellipsis;
 }
 
 .input-value {
-    color: darkgreen;
-    font-weight: 800;
-    font-size: 0.9rem;
-    margin: auto;
-    letter-spacing: 0.1rem;
-    width: 100%;
+  color: darkgreen;
+  font-weight: 800;
+  font-size: 0.9rem;
+  margin: auto;
+  letter-spacing: 0.1rem;
+  width: 100%;
 }
 
 .input-value::before {
-    content: "£";
+  content: "£";
 }
 
 .items {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0rem;
 }
 
 .item-row:hover {
-    font-size: 1.1rem;
-    background: #f2fff1;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
+  font-size: 1.1rem;
+  background: #f2fff1;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .input-row:hover {
-    background: #f2fff1;
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
+  background: #f2fff1;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-.input-row>div:nth-of-type(1) {
-    flex: 2;
+.input-row > div:nth-of-type(1) {
+  flex: 2;
 }
 
-.input-row>div:nth-of-type(2) {
-    flex: 1;
+.input-row > div:nth-of-type(2) {
+  flex: 1;
 }
 
 .total {
-    display: flex;
-    padding: 0.5rem 1rem 0rem 0rem;
-    border-bottom: 0.1rem solid grey;
+  display: flex;
+  padding: 0.5rem 1rem 0rem 0rem;
+  border-bottom: 0.1rem solid grey;
 }
 
 .total:hover {
-    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
-    border-radius: 0.5rem;
-    padding: 0rem 0.5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  padding: 0rem 0.5rem;
 }
 
-.total>h1:nth-child(1) {
-    color: lightgreen;
-    font-weight: 900;
-    font-size: 1.2rem;
-    flex: 2;
-    letter-spacing: 0.1rem;
+.total > h1:nth-child(1) {
+  color: lightgreen;
+  font-weight: 900;
+  font-size: 1.2rem;
+  flex: 2;
+  letter-spacing: 0.1rem;
 }
 
-.total>h1:nth-child(2) {
-    color: darkgreen;
-    font-weight: 800;
-    font-size: 1rem;
-    margin: auto;
+.total > h1:nth-child(2) {
+  color: darkgreen;
+  font-weight: 800;
+  font-size: 1rem;
+  margin: auto;
 }
 
-.total>h1:nth-child(3) {
-    color: darkgreen;
-    font-weight: 800;
-    font-size: 1rem;
-    flex: 1;
-    margin: auto;
+.total > h1:nth-child(3) {
+  color: darkgreen;
+  font-weight: 800;
+  font-size: 1rem;
+  flex: 1;
+  margin: auto;
 }
 
 .totals {
-    display: flex;
-    color: white;
-    padding: 0rem 0.2rem;
-    border-radius: 0.5rem;
+  display: flex;
+  color: white;
+  padding: 0rem 0.2rem;
+  border-radius: 0.5rem;
 }
-
 .totals:hover {
-    background: #389338;
-    border: 0.1rem solid white;
+  background: #389338;
+  border: 0.1rem solid white;
 }
 
 .totals-title {
-    font-weight: 900;
-    font-size: 1rem;
-    flex: 1;
-    letter-spacing: 0.2rem;
+  font-weight: 900;
+  font-size: 1rem;
+  flex: 1;
+  letter-spacing: 0.2rem;
 }
 
 .totals-value {
-    font-weight: 800;
-    font-size: 1rem;
-    flex: 1;
+  font-weight: 800;
+  font-size: 1rem;
+  flex: 1;
 }
 
 .totals-with-top-underline {
-    display: flex;
-    color: white;
-    padding: 0rem 1rem;
-    border-radius: 0rem;
-    border-top: solid 0.1rem lightgrey;
+  display: flex;
+  color: white;
+  padding: 0rem 1rem;
+  border-radius: 0rem;
+  border-top: solid 0.1rem lightgrey;
 }
 
 .margin-bottom-one-rem {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .minus {
-    padding-right: 0.5rem;
-    margin: auto;
+  padding-right: 0.5rem;
+  margin: auto;
 }
 
 .minus:hover {
-    font-size: larger;
-    cursor: pointer;
+  font-size: larger;
+  cursor: pointer;
 }
 
 footer {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-align: center;
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
 }
 
 .add {
-    display: flex;
+  display: flex;
 }
 
 .add-btn {
-    margin: 1rem 0.5rem 0.5rem 0.3rem;
+  margin: 1rem 0.5rem 0.5rem 0.3rem;
 }
 
 .add-btn:hover {
-    cursor: pointer;
-    font-size: large;
+  cursor: pointer;
+  font-size: large;
 }
 
 /*INCOME*/
-
 #income-section {
-    flex: 3;
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    display: flex;
-    flex-direction: column;
+  flex: 3;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .income-title {
-    font-weight: 900;
-    font-size: 1.5rem;
-    color: darkgreen;
-    margin: 0;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: darkgreen;
+  margin: 0;
 }
 
 /*EXPENSES*/
-
 #expense-section {
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .expense-title {
-    font-weight: 900;
-    font-size: 1.5rem;
-    color: darkgreen;
-    margin: 0;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: darkgreen;
+  margin: 0;
 }
 
 .expense-total-container {
-    margin-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
-
 /*TOTALS*/
-
 #totals-section {
-    color: white;
-    flex: 1;
-    background-color: #298329;
-    border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  color: white;
+  flex: 1;
+  background-color: #298329;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 @media (max-width: 800px) and (min-aspect-ratio: 2/1) {
-    body {
-        overflow-y: auto;
-    }
-
-    #outer-container {
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
-    }
-
-    #income-and-total-section {
-        background-color: white;
-        margin: 1rem 0rem 1rem 0rem;
-        height: inherit;
-        min-width: 300px;
-    }
-
-    #expense-section {
-        min-width: 300px;
-    }
-
-    #income-section {
-        padding: initial;
-    }
-
-    #totals-section {
-        display: none;
-    }
-
-    #hidden-total-section {
-        color: white;
-        background-color: #298329;
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 1rem 0rem;
-        width: 100%;
-        min-width: 300px;
-    }
-
-    #income-list {
-        max-height: 250px;
-    }
-
-    #expense-list {
-        max-height: 300px;
-    }
-
-    .income-total-container {
-        margin-bottom: 0.8rem;
-    }
+  body {
+    overflow-y: auto;
+  }
+  #outer-container {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  #income-and-total-section {
+    background-color: white;
+    margin: 1rem 0rem 1rem 0rem;
+    height: inherit;
+    min-width: 300px;
+  }
+  #expense-section {
+    min-width: 300px;
+  }
+  #income-section {
+    padding: initial;
+  }
+  #totals-section {
+    display: none;
+  }
+  #hidden-total-section {
+    color: white;
+    background-color: #298329;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem 0rem;
+    width: 100%;
+    min-width: 300px;
+  }
+  #income-list {
+    max-height: 250px;
+  }
+  #expense-list {
+    max-height: 300px;
+  }
+  .income-total-container {
+    margin-bottom: 0.8rem;
+  }
 }
-
 @media (max-width: 800px) {
-    body {
-        overflow-y: auto;
-    }
-
-    #outer-container {
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
-    }
-
-    #income-and-total-section {
-        background-color: white;
-        margin: 1rem 0rem 1rem 0rem;
-        width: 100%;
-        min-width: 300px;
-        padding: initial;
-        flex: initial;
-    }
-
-    #expense-section {
-        width: 100%;
-        min-width: 300px;
-        padding: initial;
-    }
-
-    #expense-section>* {
-        margin: 0 1rem;
-    }
-
-    #expense-section>.total {
-        margin-bottom: 1rem;
-    }
-
-    #income-section {
-        padding: initial;
-        margin: 0 1rem;
-    }
-
-    #totals-section {
-        display: none;
-    }
-
-    #hidden-total-section {
-        color: white;
-        background-color: #298329;
-        border-radius: 0.5rem;
-        padding: initial;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 1rem 0rem;
-        width: 100%;
-        min-width: 300px;
-    }
-
-    #hidden-total-section>* {
-        margin: 0 1rem;
-    }
-
-    #income-list {
-        max-height: 120px;
-    }
-
-    #expense-list {
-        max-height: 300px;
-    }
-
-    .income-total-container {
-        margin-bottom: 0.8rem;
-    }
+  body {
+    overflow-y: auto;
+  }
+  #outer-container {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
+  #income-and-total-section {
+    background-color: white;
+    margin: 1rem 0rem 1rem 0rem;
+    width: 100%;
+    min-width: 300px;
+    padding: initial;
+    flex: initial;
+  }
+  #expense-section {
+    width: 100%;
+    min-width: 300px;
+    padding: initial;
+  }
+  #expense-section > * {
+    margin: 0 1rem;
+  }
+  #expense-section > .total {
+    margin-bottom: 1rem;
+  }
+  #income-section {
+    padding: initial;
+    margin: 0 1rem;
+  }
+  #totals-section {
+    display: none;
+  }
+  #hidden-total-section {
+    color: white;
+    background-color: #298329;
+    border-radius: 0.5rem;
+    padding: initial;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem 0rem;
+    width: 100%;
+    min-width: 300px;
+  }
+  #hidden-total-section > * {
+    margin: 0 1rem;
+  }
+  #income-list {
+    max-height: 120px;
+  }
+  #expense-list {
+    max-height: 300px;
+  }
+  .income-total-container {
+    margin-bottom: 0.8rem;
+  }
 }
-
 @media (max-width: 450px) {
-    .page-title {
-        font-size: 1.5rem;
-    }
-}
+  .page-title {
+    font-size: 1.5rem;
+  }
+}/*# sourceMappingURL=create.css.map */

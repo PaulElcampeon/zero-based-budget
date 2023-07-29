@@ -1,6 +1,8 @@
 package com.paulo.budgeting.domain;
 
 import com.paulo.budgeting.domain.enums.MoneyItemType;
+import com.paulo.budgeting.dto.BudgetDto;
+import com.paulo.budgeting.dto.MoneyItemDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,5 +89,14 @@ public class Budget {
                 .stream()
                 .filter((moneyItem -> moneyItem.getType() == MoneyItemType.EXPENSE))
                 .collect(Collectors.toList());
+    }
+
+    public BudgetDto mapToDto() {
+        return BudgetDto
+                .builder()
+                .expenses(getExpenses().stream().map(MoneyItem::mapToDto).sorted(Comparator.comparingInt(MoneyItemDto::getPosition)).collect(Collectors.toList()))
+                .incomes(getIncomes().stream().map(MoneyItem::mapToDto).sorted(Comparator.comparingInt(MoneyItemDto::getPosition)).collect(Collectors.toList()))
+                .title(title)
+                .build();
     }
 }

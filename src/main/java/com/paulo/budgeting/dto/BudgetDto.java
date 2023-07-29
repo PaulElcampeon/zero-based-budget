@@ -9,10 +9,10 @@ import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class ExportBudgetRequest {
-    private String budgetName;
+@AllArgsConstructor
+public class BudgetDto {
+    private String title;
     private List<MoneyItemDto> expenses;
     private List<MoneyItemDto> incomes;
 }

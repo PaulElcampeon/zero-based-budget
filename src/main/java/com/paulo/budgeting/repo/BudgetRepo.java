@@ -4,12 +4,12 @@ import com.paulo.budgeting.domain.Budget;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.List;
 
 @Repository
 public interface BudgetRepo extends JpaRepository<Budget, Long> {
 
-    Optional<Budget> findBudgetByUserEmail(String userEmail);
+    List<Budget> findAllByUserEmail(String userEmail);
 
     boolean existsByUserEmail(String userEmail);
 

@@ -1,6 +1,7 @@
 package com.paulo.budgeting.domain;
 
 import com.paulo.budgeting.domain.enums.MoneyItemType;
+import com.paulo.budgeting.dto.MoneyItemDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class MoneyItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "position", nullable = false)
-    private String position;
+    private Integer position;
     @Column(name = "title", nullable = false)
     private String title;
     @Column(name = "value", nullable = false)
@@ -37,4 +38,13 @@ public class MoneyItem {
     @ManyToOne
     @JoinColumn(name ="budget_id", nullable = false)
     private Budget budget;
+
+    public MoneyItemDto mapToDto() {
+        return MoneyItemDto
+                .builder()
+                .position(this.position)
+                .value(this.value)
+                .title(this.title)
+                .build();
+    }
 }

@@ -318,31 +318,31 @@ function save() {
         incomes: incomes
     }
 
-    if (!retrieveFromStorage("tokie")) {
-        storeValueInStorage("budget", requestBody)
-        location.href = "../login"
-    }
+    // if (!retrieveFromStorage("tokie")) {
+    //     storeValueInStorage("budget", requestBody)
+    //     location.href = "../login"
+    // }
 
     console.log("saving ........")
     console.log(requestBody);
 
-    const url = "../ap1/v1/budget/save"
+    const url = "../api/v1/budget/save"
 
     fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": retrieveFromStorage("tokie")
+            // "Authorization": retrieveFromStorage("tokie")
         },
         body: JSON.stringify(requestBody),
     })
         .then(response => {
             console.log(response.status)
-            if (response.status === 403) {
-                removeFromStorage("tokie");
-                storeValueInStorage("budget", requestBody)
-                location.href = "../login";
-            }
+            // if (response.status === 403) {
+            //     removeFromStorage("tokie");
+            //     storeValueInStorage("budget", requestBody)
+            //     location.href = "../login";
+            // }
             return response.json();
         })
         .then(result => {

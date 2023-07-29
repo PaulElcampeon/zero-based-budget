@@ -4,6 +4,7 @@ import com.paulo.budgeting.domain.Budget;
 import com.paulo.budgeting.domain.MoneyItem;
 import com.paulo.budgeting.domain.enums.MoneyItemType;
 import com.paulo.budgeting.dto.CreateBudgetRequest;
+import com.paulo.budgeting.dto.ExportBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetRequest;
 import com.paulo.budgeting.exporters.BudgetToCsvExporter;
 import com.paulo.budgeting.repo.BudgetRepo;
@@ -22,7 +23,6 @@ import java.util.stream.Stream;
 public class BudgetService {
 
     private final BudgetRepo repo;
-
     private final BudgetToCsvExporter budgetToCsvExporter;
 
     public Budget createBudget(CreateBudgetRequest request, String email) {
@@ -33,24 +33,36 @@ public class BudgetService {
         return repo.save(budget);
     }
 
-    public Optional<Budget> findBudgetByEmail(String email) {
-        return repo.findBudgetByUserEmail(email);
+    public List<Budget> findBudgetsByEmail(String email) {
+        return repo.findAllByUserEmail(email);
+    }
+
+    public Optional<Budget> findById(Long id) {
+        return repo.findById(id);
     }
 
     public Boolean doesBudgetExistByEmail(String email) {
         return repo.existsByUserEmail(email);
     }
 
-    public String exportAsCsv(String email) {
-        return findBudgetByEmail(email)
-                .map(budget -> {
-                    try {
-                        return budgetToCsvExporter.export(budget);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .orElseThrow(() -> new RuntimeException("Was not able to export budget as csv"));
+    public String exportAsCsv(ExportBudgetRequest request) {
+        Budget budget = Budget.builder()
+                .title(request.getBudgetName())
+                .expenses(request
+                        .getExpenses()
+                        .stream()
+                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
+                .incomes(request
+                        .getIncomes()
+                        .stream()
+                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
+                .build();
+
+        try {
+            return budgetToCsvExporter.export(budget);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String exportAsCsv(Budget budget) {

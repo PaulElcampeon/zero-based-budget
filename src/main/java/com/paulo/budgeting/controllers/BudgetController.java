@@ -8,6 +8,7 @@ import com.paulo.budgeting.dto.SaveBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetResponse;
 import com.paulo.budgeting.service.BudgetService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +26,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/budget")
 @RequiredArgsConstructor
+@Slf4j
 public class BudgetController {
 
     private final BudgetService budgetService;
 
     @PostMapping("/export")
     public ResponseEntity<?> exportBudget(@RequestBody ExportBudgetRequest request, Principal principal) throws IOException {
-        String csvAsString = budgetService.exportAsCsv(principal.getName());
+        String csvAsString = budgetService.exportAsCsv(request);
 
 
         return ResponseEntity.ok()
@@ -42,6 +44,7 @@ public class BudgetController {
 
     @PostMapping("/save")
     public ResponseEntity<SaveBudgetResponse> save(@RequestBody SaveBudgetRequest request, Principal principal) throws IOException {
+        log.info("{}",request);
         Budget budget = budgetService.save(request, principal.getName());
         SaveBudgetResponse saveBudgetResponse = new SaveBudgetResponse(budget.getId());
 

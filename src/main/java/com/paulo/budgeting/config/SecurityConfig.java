@@ -39,7 +39,7 @@ public class SecurityConfig {
             "/generated.html",
             "/api/v1/auth/authenticate",
             "/api/v1/user/create",
-            "/api/v1/budget/test"
+            "/api/v1/budget/save"
     };
 
     @Bean
