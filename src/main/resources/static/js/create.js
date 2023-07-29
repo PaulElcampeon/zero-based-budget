@@ -57,7 +57,7 @@ function renderExpenses() {
         input_expense_title.pattern = "[A-Za-z0-9]+"
         input_expense_title.placeholder = "INCOME"
         input_expense_title.disabled = true
-        input_expense_title.value = expense.name
+        input_expense_title.value = expense.title
 
         let div_3 = document.createElement("div")
 
@@ -67,7 +67,7 @@ function renderExpenses() {
         input_expense_value.pattern = "[0-9]+"
         input_expense_value.placeholder = "VALUE"
         input_expense_value.disabled = true;
-        input_expense_value.value = expense.cost.toFixed(2)
+        input_expense_value.value = expense.value.toFixed(2)
 
         let h1_money_sign = document.createElement("h1")
         h1_money_sign.className = "money-sign"
@@ -101,8 +101,8 @@ function renderExpenses() {
 
 function updateExpense(data) {
     let { index, title, value } = data
-    expenses[index].name = title;
-    expenses[index].cost = parseFloat(value);
+    expenses[index].title = title;
+    expenses[index].value = parseFloat(value);
 
     renderExpenses();
     calculateTotals();
@@ -125,7 +125,7 @@ function renderIncomes() {
         input_income_title.pattern = "[A-Za-z0-9]+"
         input_income_title.placeholder = "INCOME"
         input_income_title.disabled = true
-        input_income_title.value = income.name
+        input_income_title.value = income.title
 
         let div_3 = document.createElement("div")
 
@@ -135,7 +135,7 @@ function renderIncomes() {
         input_income_value.pattern = "[0-9]+"
         input_income_value.placeholder = "VALUE"
         input_income_value.disabled = true
-        input_income_value.value = income.cost.toFixed(2)
+        input_income_value.value = income.value.toFixed(2)
 
         let h1_money_sign = document.createElement("h1")
         h1_money_sign.className = "money-sign"
@@ -169,8 +169,8 @@ function renderIncomes() {
 
 function updateIncome(data) {
     let { index, title, value } = data
-    incomes[index].name = title;
-    incomes[index].cost = parseFloat(value);
+    incomes[index].title = title;
+    incomes[index].value = parseFloat(value);
 
     renderIncomes();
     calculateTotals();
@@ -184,8 +184,8 @@ function addIncome() {
 
     if (incomeName !== "" && !isNaN(incomeValue)) {
         const income = {
-            name: incomeName,
-            cost: incomeValue
+            title: incomeName,
+            value: incomeValue
         };
 
         incomes.push(income);
@@ -205,8 +205,8 @@ function addExpense() {
 
     if (expenseName !== "" && !isNaN(expenseValue)) {
         const expense = {
-            name: expenseName,
-            cost: expenseValue
+            title: expenseName,
+            value: expenseValue
         };
 
         expenses.push(expense);
@@ -231,12 +231,12 @@ function removeExpense(index) {
 }
 
 function calculateTotals() {
-    const incomeTotal = incomes.reduce((a, b) => a + b.cost, 0).toFixed(2)
+    const incomeTotal = incomes.reduce((a, b) => a + b.value, 0).toFixed(2)
 
     incomeTotal1.innerHTML = incomeTotal
     incomeTotal2.innerHTML = incomeTotal
 
-    const expenseTotal = expenses.reduce((a, b) => a + b.cost, 0).toFixed(2)
+    const expenseTotal = expenses.reduce((a, b) => a + b.value, 0).toFixed(2)
 
     expenseTotal1.innerHTML = expenseTotal
     expenseTotal2.innerHTML = expenseTotal
@@ -365,6 +365,15 @@ function createBudgetIcon(budgetInfo) {
     img.src = "icons/sheet-1-icon.png"
     let p = document.createElement("p");
     p.innerText = budgetInfo.title;
+
+    outerDiv.addEventListener("click", () => {
+        expenses = budgetInfo.expenses;
+        incomes = budgetInfo.incomes;
+        renderExpenses();
+        renderIncomes();
+        showBudgetSheet();
+        hideBudgetList();
+    });
 
     imgDiv.appendChild(img);
     outerDiv.appendChild(imgDiv);
