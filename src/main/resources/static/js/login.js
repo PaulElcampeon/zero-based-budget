@@ -51,7 +51,6 @@ register_btn.addEventListener("click", (event) => {
         .catch(error => {
             console.error('Error:', error);
         });
-
 })
 
 login_btn.addEventListener("click", (event) => {
@@ -78,7 +77,8 @@ login_btn.addEventListener("click", (event) => {
         .then(response => response.json())
         .then(result => {
             console.log('Response:', result);
-            storeToken(result.token)
+            storeValueInStorage("tokie", result.token)
+            storeValueInStorage("budgets", JSON. stringify(result.budgets))
             location.href = '../create'
         })
         .catch(error => {
@@ -128,10 +128,14 @@ function isNotEmpty(value) {
     return value.trim() !== "";
 }
 
-function storeToken(token) {
-    localStorage.setItem("tokie", token)
+function storeValueInStorage(key, value) {
+    localStorage.setItem(key, value)
 }
 
-function retrieveToken() {
-    return localStorage.getItem("tokie")
+function removeFromStorage(key) {
+    localStorage.removeItem(key)
+}
+
+function retrieveFromStorage(key) {
+    localStorage.getItem(key)
 }

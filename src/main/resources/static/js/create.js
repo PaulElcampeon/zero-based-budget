@@ -1,7 +1,3 @@
-document.getElementById("page-title-id").addEventListener("click", (event) => {
-    location.href = "../";
-})
-
 var expenses = [];
 const expenseList = document.getElementById("expense-list")
 const expenseInputRow = document.getElementById("expense-input-row")
@@ -36,7 +32,13 @@ const m2 = document.getElementById("m2");
 const saveBtn = document.getElementById("save-btn");
 const logoutBtn = document.getElementById("logout-btn");
 
-const  budgetName = document.getElementById("budget-name")
+const budgetName = document.getElementById("budget-name");
+
+const budgetListElement = document.getElementById("budget-list");
+
+const budgetSheetDiv = document.getElementById("budget-sheet");
+const budgetListContainer = document.getElementById("budget-list-container");
+const backToBudgetsBtn = document.getElementById("back-to-budgets-btn");
 
 function renderExpenses() {
     expenseList.innerHTML = ""
@@ -280,29 +282,21 @@ function logout() {
     location.href = '../';
 }
 
-function storeToken(token) {
-    localStorage.setItem("tokie", token)
-}
-
 function storeValueInStorage(key, value) {
     localStorage.setItem(key, value)
 }
 
 function removeFromStorage(key) {
-    localStorage.getItem(key)
-}
-
-function retrieveFromStorage(key) {
     localStorage.removeItem(key)
 }
 
-function retrieveToken() {
-    return localStorage.getItem("tokie")
+function retrieveFromStorage(key) {
+    localStorage.getItem(key)
 }
 
 function getBudgetName() {
-    return budgetName.value? budgetName.value : getCurrentDateInDDMMYYYYFormat();
-    
+    return budgetName.value ? budgetName.value : getCurrentDateInDDMMYYYYFormat();
+
 }
 
 function getCurrentDateInDDMMYYYYFormat() {
@@ -311,22 +305,22 @@ function getCurrentDateInDDMMYYYYFormat() {
     const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const year = currentDate.getFullYear();
     return `${day}-${month}-${year}`;
-  }
+}
 
 function save() {
     const budgetName = getBudgetName();
-    expenses = expenses.map((value, index)=> {value.position = index; return value});
-    incomes = incomes.map((value, index)=> {value.position = index; return value});
+    expenses = expenses.map((value, index) => { value.position = index; return value });
+    incomes = incomes.map((value, index) => { value.position = index; return value });
 
     const requestBody = {
         budgetName: budgetName,
         expenses: expenses,
         incomes: incomes
     }
-    
-    if (!retrieveToken()) {
+
+    if (!retrieveFromStorage("tokie")) {
         storeValueInStorage("budget", requestBody)
-        localStorage.href = "../login"
+        location.href = "../login"
     }
 
     console.log("saving ........")
@@ -338,11 +332,19 @@ function save() {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": retrieveToken()
+            "Authorization": retrieveFromStorage("tokie")
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestBody),
     })
-        .then(response => response.json())
+        .then(response => {
+            console.log(response.status)
+            if (response.status === 403) {
+                removeFromStorage("tokie");
+                storeValueInStorage("budget", requestBody)
+                location.href = "../login";
+            }
+            return response.json();
+        })
         .then(result => {
             console.log(result)
         })
@@ -351,15 +353,101 @@ function save() {
         });
 }
 
-incomeAddBtn.addEventListener("click", addIncome);
-expenseAddBtn.addEventListener("click", addExpense);
+function goBackToBudgets() {
+    showBudgetList();
+    hideBudgetSheet();
+}
 
-incomeValueInput.addEventListener("input", (event) => removeNonNumericCharactersFromInputValue(event.target));
-expenseValueInput.addEventListener("input", (event) => removeNonNumericCharactersFromInputValue(event.target));
+function createBudgetIcon(budgetInfo) {
+    let outerDiv = document.createElement("div");
+    let imgDiv = document.createElement("div");
+    let img = document.createElement("img")
+    img.src = "icons/sheet-1-icon.png"
+    let p = document.createElement("p");
+    p.innerText = budgetInfo.title;
 
-incomeValueInput.addEventListener("change", addIncome);
-expenseValueInput.addEventListener("change", addExpense);
-incomeTitleInput.addEventListener("change", addIncome);
-expenseTitleInput.addEventListener("change", addExpense);
-saveBtn.addEventListener("click", save)
-logoutBtn.addEventListener("click", logout)
+    imgDiv.appendChild(img);
+    outerDiv.appendChild(imgDiv);
+    outerDiv.appendChild(p);
+
+    return outerDiv;
+}
+
+function createAddBudgetIcon() {
+    let outerDiv = document.createElement("div");
+    let imgDiv = document.createElement("div");
+    let img = document.createElement("img")
+    img.src = "icons/add-button-icon.png"
+    let p = document.createElement("p");
+    p.innerText = "Add New";
+
+    imgDiv.appendChild(img);
+    outerDiv.appendChild(imgDiv);
+    outerDiv.appendChild(p);
+
+    outerDiv.addEventListener("click", () => {
+        showBudgetSheet();
+        hideBudgetList();
+    });
+
+    return outerDiv;
+}
+
+function hideBudgetSheet() {
+    budgetSheetDiv.style.display = "none";
+}
+
+function showBudgetSheet() {
+    budgetSheetDiv.style.display = "flex";
+}
+
+function hideBudgetList() {
+    budgetListContainer.style.display = "none";
+}
+
+function showBudgetList() {
+    budgetListContainer.style.display = "block";
+}
+
+function addBudgetsToScreen() {
+    budgetListElement.innerHTML = "";
+
+    budgetListElement.appendChild(createAddBudgetIcon())
+
+    if (retrieveFromStorage("budgets")) {
+        let budgets = JSON.parse(retrieveFromStorage("budgets"));
+        budgets.forEach(budget => {
+            budgetListElement.appendChild(createBudgetIcon(budget));
+        })
+    }
+
+    for (let i=0; i < 10; i++) {
+        budgetListElement.appendChild(createBudgetIcon({title:"id"+i}));
+    }
+}
+
+function addEventListeners() {
+    incomeAddBtn.addEventListener("click", addIncome);
+    expenseAddBtn.addEventListener("click", addExpense);
+
+    incomeValueInput.addEventListener("input", (event) => removeNonNumericCharactersFromInputValue(event.target));
+    expenseValueInput.addEventListener("input", (event) => removeNonNumericCharactersFromInputValue(event.target));
+
+    incomeValueInput.addEventListener("change", addIncome);
+    expenseValueInput.addEventListener("change", addExpense);
+    incomeTitleInput.addEventListener("change", addIncome);
+    expenseTitleInput.addEventListener("change", addExpense);
+    saveBtn.addEventListener("click", save);
+    logoutBtn.addEventListener("click", logout);
+
+    backToBudgetsBtn.addEventListener("click", goBackToBudgets);
+
+    document.getElementById("page-title-id").addEventListener("click", (event) => {
+        location.href = "../";
+    })
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    addEventListeners();
+    addBudgetsToScreen();
+});

@@ -32,11 +32,22 @@
         </div>
     </header>
     <main>
-        <div class="m1">
+        <div id="budget-list-container">
+            <div>
+                <h2 class="budget-list-title">My Budgets</h2>
+            </div>
+            <div id="budget-list">
+            </div>
+        </div>
+
+        <div id="budget-sheet" class="m1">
             <div style="display:flex;">
                 <input id="budget-name" type="text" pattern="[A-Za-z0-9]+" placeholder="TITLE">
                 <div class="save-image-container">
                     <button id="save-btn"></button>
+                </div>
+                <div class="back-to-budgets-container">
+                    <button id="back-to-budgets-btn"></button>
                 </div>
             </div>
             <div id="outer-container">

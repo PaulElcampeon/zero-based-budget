@@ -37,6 +37,8 @@ public class Budget {
     private Long id;
     @Column(name = "userEmail", nullable = false)
     private String userEmail;
+    @Column(name = "title", nullable = false)
+    private String title;
     @Transient
     @Builder.Default
     private List<MoneyItem> incomes = new ArrayList<>();

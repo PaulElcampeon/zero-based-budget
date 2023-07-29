@@ -133,7 +133,50 @@ main {
     line-height: 2rem;
 }
 
-@media (max-width: 950px), (min-aspect-ratio: 2/1) {
+@media (max-width: 950px) and (min-aspect-ratio: 2/1) {
+    body {
+        overflow-y: auto;
+    }
+
+    .main-container {
+        flex-direction: column;
+    }
+
+    .main-container>section {
+        margin: 1rem 0rem;
+    }
+
+    .main-container>section:nth-child(2) {
+        margin: 1rem 0rem;
+    }
+
+    .card-info {
+        font-size: 1rem;
+    }
+
+    .create-section-message {
+        font-size: 1rem;
+
+    }
+
+    .create-btn {
+        font-size: 2rem;
+    }
+
+    .create-section {
+        padding: 2rem;
+    }
+
+    .create-section:hover {
+        padding: 2.1rem;
+    }
+
+    .create-btn:hover {
+        padding: 1.5rem 4rem;
+    }
+}
+
+@media (max-width: 950px) {
     body {
         overflow-y: auto;
     }

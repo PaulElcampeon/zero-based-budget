@@ -26,14 +26,63 @@ main {
     min-width: 450px;
 }
 
-.m1 {
+#budget-list-container {
+    margin: 1rem;
+}
+
+.budget-list-title {
+    text-align: center;
+    color: white;
+    padding: 1rem;
+    font-weight: 900;
+}
+
+#budget-list {
     display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: fit-content; 
+}
+
+#budget-list>div {
+    height: fit-content;
+    padding: 1rem;
+}
+
+#budget-list>div>div {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+#budget-list>div:hover {
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
+    border-radius: 0.5rem;
+    margin: 0.1rem;
+}
+
+#budget-list>div>div>img {
+    width: 80px;
+    height: 80px;
+}
+
+#budget-list>div>p {
+    color: white;
+    width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    font-weight: 700;
+}
+
+#budget-sheet {
+    display: none;
     flex-direction: column;
     width: 80%;
     max-width: 1200px;
-    ;
 }
-
 
 .black {
     color: black;
@@ -65,6 +114,10 @@ main {
     display: flex;
     padding: 1rem 0;
     flex: 1;
+}
+
+#budget-sheet {
+    display: none;
 }
 
 #budget-name {
@@ -118,6 +171,28 @@ main {
 }
 
 .save-image-container>button:hover {
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
+    border-radius: 0.5rem;
+    margin: 0.2rem;
+}
+
+.back-to-budgets-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.back-to-budgets-container>button {
+    width: 40px;
+    height: 40px;
+    margin: auto 0em;
+    border: none;
+    background-image: url('../icons/sheet-2-icon.png');
+    background-size: cover;
+    background-color: initial;
+}
+
+.back-to-budgets-container>button:hover {
     cursor: pointer;
     box-shadow: 0 5px 20px rgb(0 0 0 / 0.2);
     border-radius: 0.5rem;
