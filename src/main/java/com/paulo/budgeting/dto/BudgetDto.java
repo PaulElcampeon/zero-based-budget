@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BudgetDto {
+    private Long id;
     private String title;
     private List<MoneyItemDto> expenses;
     private List<MoneyItemDto> incomes;

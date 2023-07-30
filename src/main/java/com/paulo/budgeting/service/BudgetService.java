@@ -8,6 +8,8 @@ import com.paulo.budgeting.dto.ExportBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetRequest;
 import com.paulo.budgeting.exporters.BudgetToCsvExporter;
 import com.paulo.budgeting.repo.BudgetRepo;
+import com.paulo.budgeting.repo.MoneyItemRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ import java.util.stream.Stream;
 public class BudgetService {
 
     private final BudgetRepo repo;
+
+    private final MoneyItemRepo moneyItemRepo;
     private final BudgetToCsvExporter budgetToCsvExporter;
 
     public Budget createBudget(CreateBudgetRequest request, String email) {
@@ -73,8 +77,19 @@ public class BudgetService {
         }
     }
 
+    @Transactional
     public Budget save(SaveBudgetRequest request, String email) {
-        Budget budget = new Budget();
+        Budget budget;
+        if (request.getId().filter(id -> id != 0).isPresent()) {
+            Long id = request.getId().get();
+            budget = repo.findById(id).orElseThrow(() -> new RuntimeException("Could not find budget with id " + request.getId().get()));
+            //Remove All MoneyItems associated with the budget and insert them all again as some may be new or update or even removed
+            budget.getMoneyItems().clear();
+        } else {
+            budget = new Budget();
+        }
+
+        budget.setTitle(request.getTitle());
         budget.setUserEmail(email);
 
         List<MoneyItem> expense = request.getExpenses()
@@ -101,9 +116,13 @@ public class BudgetService {
                 )
                 .toList();
 
-        List<MoneyItem> combinedMoneyList = Stream.of(expense, incomes).flatMap(Collection::stream).collect(Collectors.toList());
+        List<MoneyItem> combinedMoneyList = Stream.of(expense, incomes).flatMap(Collection::stream).toList();
 
-        budget.setMoneyItems(combinedMoneyList);
+        //It is important to use addAll rather than setMoneyItems(combinedMoneyList) because you want the parent entity
+        // to still reference the old child collection so it can update the child elements e.g delete them if they have
+        // been removed from the collection
+        budget.getMoneyItems().addAll(combinedMoneyList);
+        budget.getMoneyItems().forEach(moneyItem -> moneyItem.setBudget(budget));
 
         return repo.save(budget);
     }

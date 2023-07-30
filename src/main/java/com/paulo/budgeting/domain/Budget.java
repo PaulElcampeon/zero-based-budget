@@ -48,8 +48,8 @@ public class Budget {
     @Transient
     @Builder.Default
     private List<MoneyItem> expenses = new ArrayList<>();
-    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<MoneyItem> moneyItems;
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<MoneyItem> moneyItems = new ArrayList<>();
     @Column(nullable = false)
     private Instant createAt;
     @Column(nullable = false)
@@ -94,6 +94,7 @@ public class Budget {
     public BudgetDto mapToDto() {
         return BudgetDto
                 .builder()
+                .id(id)
                 .expenses(getExpenses().stream().map(MoneyItem::mapToDto).sorted(Comparator.comparingInt(MoneyItemDto::getPosition)).collect(Collectors.toList()))
                 .incomes(getIncomes().stream().map(MoneyItem::mapToDto).sorted(Comparator.comparingInt(MoneyItemDto::getPosition)).collect(Collectors.toList()))
                 .title(title)

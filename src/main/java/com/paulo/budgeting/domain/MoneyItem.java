@@ -42,9 +42,9 @@ public class MoneyItem {
     public MoneyItemDto mapToDto() {
         return MoneyItemDto
                 .builder()
-                .position(this.position)
-                .value(this.value)
-                .title(this.title)
+                .position(position)
+                .value(value)
+                .title(title)
                 .build();
     }
 }

@@ -8,6 +8,6 @@ import java.util.List;
 public class AuthResponse {
     private final String token;
 
-    private final List<BudgetDto> budget;
+    private final List<BudgetDto> budgets;
 
 }

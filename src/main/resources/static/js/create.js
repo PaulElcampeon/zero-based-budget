@@ -1,4 +1,3 @@
-var expenses = [];
 const expenseList = document.getElementById("expense-list")
 const expenseInputRow = document.getElementById("expense-input-row")
 const divExpenseAddBtn = document.getElementById("expense-add+btn")
@@ -6,7 +5,6 @@ const expenseAddBtn = document.getElementById("add-btn-expense")
 const expenseTotal1 = document.getElementById("expense-total-1")
 const expenseTotal2 = document.getElementById("expense-total-2")
 
-var incomes = [];
 const incomeList = document.getElementById("income-list")
 const incomeInputRow = document.getElementById("income-input-row")
 const divIncomeAddBtn = document.getElementById("income-add+btn")
@@ -37,14 +35,18 @@ const budgetName = document.getElementById("budget-name");
 const budgetListElement = document.getElementById("budget-list");
 
 const budgetSheetDiv = document.getElementById("budget-sheet");
+
 const budgetListContainer = document.getElementById("budget-list-container");
+
 const backToBudgetsBtn = document.getElementById("back-to-budgets-btn");
+
+var selectedBudget = {}
 
 function renderExpenses() {
     expenseList.innerHTML = ""
 
-    for (let i = 0; i < expenses.length; i++) {
-        let expense = expenses[i]
+    for (let i = 0; i < selectedBudget.expenses.length; i++) {
+        let expense = selectedBudget.expenses[i]
 
         let li = document.createElement("li")
         li.className = "item input-row item-row"
@@ -101,18 +103,31 @@ function renderExpenses() {
 
 function updateExpense(data) {
     let { index, title, value } = data
-    expenses[index].title = title;
-    expenses[index].value = parseFloat(value);
+    selectedBudget.expenses[index].title = title;
+    selectedBudget.expenses[index].value = parseFloat(value);
 
     renderExpenses();
     calculateTotals();
 }
 
+function renderBudget() {
+    renderTitle();
+    renderIncomes();
+    renderExpenses();
+    calculateTotals();
+    showBudgetSheet();
+    hideBudgetList();
+}
+
+function renderTitle() {
+    budgetName.value = selectedBudget.title;
+}
+
 function renderIncomes() {
     incomeList.innerHTML = ""
 
-    for (let i = 0; i < incomes.length; i++) {
-        let income = incomes[i]
+    for (let i = 0; i < selectedBudget.incomes.length; i++) {
+        let income = selectedBudget.incomes[i]
 
         let li = document.createElement("li")
         li.className = "item input-row item-row"
@@ -169,8 +184,8 @@ function renderIncomes() {
 
 function updateIncome(data) {
     let { index, title, value } = data
-    incomes[index].title = title;
-    incomes[index].value = parseFloat(value);
+    selectedBudget.incomes[index].title = title;
+    selectedBudget.incomes[index].value = parseFloat(value);
 
     renderIncomes();
     calculateTotals();
@@ -188,7 +203,7 @@ function addIncome() {
             value: incomeValue
         };
 
-        incomes.push(income);
+        selectedBudget.incomes.push(income)
         incomeNameInput.value = "";
         incomeValueInput.value = "";
 
@@ -209,7 +224,7 @@ function addExpense() {
             value: expenseValue
         };
 
-        expenses.push(expense);
+        selectedBudget.expenses.push(expense);
         expenseNameInput.value = "";
         expenseValueInput.value = "";
 
@@ -219,24 +234,24 @@ function addExpense() {
 }
 
 function removeIncome(index) {
-    incomes.splice(index, 1);
+    selectedBudget.incomes.splice(index, 1);
     renderIncomes();
     calculateTotals();
 }
 
 function removeExpense(index) {
-    expenses.splice(index, 1);
+    selectedBudget.expenses.splice(index, 1);
     renderExpenses();
     calculateTotals();
 }
 
 function calculateTotals() {
-    const incomeTotal = incomes.reduce((a, b) => a + b.value, 0).toFixed(2)
+    const incomeTotal = selectedBudget.incomes.reduce((a, b) => a + b.value, 0).toFixed(2)
 
     incomeTotal1.innerHTML = incomeTotal
     incomeTotal2.innerHTML = incomeTotal
 
-    const expenseTotal = expenses.reduce((a, b) => a + b.value, 0).toFixed(2)
+    const expenseTotal = selectedBudget.expenses.reduce((a, b) => a + b.value, 0).toFixed(2)
 
     expenseTotal1.innerHTML = expenseTotal
     expenseTotal2.innerHTML = expenseTotal
@@ -291,12 +306,11 @@ function removeFromStorage(key) {
 }
 
 function retrieveFromStorage(key) {
-    localStorage.getItem(key)
+    return localStorage.getItem(key)
 }
 
 function getBudgetName() {
     return budgetName.value ? budgetName.value : getCurrentDateInDDMMYYYYFormat();
-
 }
 
 function getCurrentDateInDDMMYYYYFormat() {
@@ -308,23 +322,19 @@ function getCurrentDateInDDMMYYYYFormat() {
 }
 
 function save() {
-    const budgetName = getBudgetName();
-    expenses = expenses.map((value, index) => { value.position = index; return value });
-    incomes = incomes.map((value, index) => { value.position = index; return value });
+    // const budgetName = getBudgetName();
+    selectedBudget.expenses = selectedBudget.expenses.map((value, index) => { value.position = index; return value });
+    selectedBudget.incomes = selectedBudget.incomes.map((value, index) => { value.position = index; return value });
+    selectedBudget.title = getBudgetName();
 
-    const requestBody = {
-        budgetName: budgetName,
-        expenses: expenses,
-        incomes: incomes
+    if (!retrieveFromStorage("tokie")) {
+        storeValueInStorage("budget", JSON.stringify(selectedBudget))
+        location.href = "../login"
     }
 
-    // if (!retrieveFromStorage("tokie")) {
-    //     storeValueInStorage("budget", requestBody)
-    //     location.href = "../login"
-    // }
 
     console.log("saving ........")
-    console.log(requestBody);
+    console.log(selectedBudget);
 
     const url = "../api/v1/budget/save"
 
@@ -332,9 +342,9 @@ function save() {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            // "Authorization": retrieveFromStorage("tokie")
+            "Authorization": retrieveFromStorage("tokie")
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify(selectedBudget),
     })
         .then(response => {
             console.log(response.status)
@@ -347,10 +357,31 @@ function save() {
         })
         .then(result => {
             console.log(result)
+            selectedBudget.id = result.id;
+            updateBudgetInList();
         })
         .catch(error => {
             console.error('Error:', error);
         });
+}
+
+function updateBudgetInList() {
+    let budgets = JSON.parse(retrieveFromStorage("budgets"));
+
+    if (budgets.length > 0) {
+        let tempBudgetList = budgets.filter((budget) => budget.id == selectedBudget.id).map((budget, index) => index);
+        if (tempBudgetList.length > 0) {
+            budgets[tempBudgetList[0]] = selectedBudget;
+        } else {
+            budgets.push(selectedBudget);  
+        }
+    } else {
+        budgets = [selectedBudget]
+    }
+
+    storeValueInStorage("budgets", JSON.stringify(budgets))
+
+    addBudgetsToScreen();
 }
 
 function goBackToBudgets() {
@@ -367,12 +398,8 @@ function createBudgetIcon(budgetInfo) {
     p.innerText = budgetInfo.title;
 
     outerDiv.addEventListener("click", () => {
-        expenses = budgetInfo.expenses;
-        incomes = budgetInfo.incomes;
-        renderExpenses();
-        renderIncomes();
-        showBudgetSheet();
-        hideBudgetList();
+        selectedBudget = budgetInfo;
+        renderBudget();
     });
 
     imgDiv.appendChild(img);
@@ -395,8 +422,13 @@ function createAddBudgetIcon() {
     outerDiv.appendChild(p);
 
     outerDiv.addEventListener("click", () => {
-        showBudgetSheet();
-        hideBudgetList();
+        selectedBudget = {
+            expenses: [],
+            incomes: [],
+            title: "",
+            id: 0
+        }
+        renderBudget();
     });
 
     return outerDiv;
@@ -429,10 +461,6 @@ function addBudgetsToScreen() {
             budgetListElement.appendChild(createBudgetIcon(budget));
         })
     }
-
-    // for (let i=0; i < 10; i++) {
-    //     budgetListElement.appendChild(createBudgetIcon({title:"id"+i}));
-    // }
 }
 
 function addEventListeners() {

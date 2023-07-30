@@ -43,10 +43,12 @@ register_btn.addEventListener("click", (event) => {
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.json())
+        .then(response => response.status)
         .then(result => {
+            if (result === 200) {
+                toggleForm()
+            }
             console.log('Response:', result);
-            toggleForm()
         })
         .catch(error => {
             console.error('Error:', error);
@@ -77,8 +79,12 @@ login_btn.addEventListener("click", (event) => {
         .then(response => response.json())
         .then(result => {
             console.log('Response:', result);
-            storeValueInStorage("tokie", result.token)
-            storeValueInStorage("budgets", JSON. stringify(result.budgets))
+            storeValueInStorage("tokie", "Bearer " + result.token)
+            if (result.budgets) {
+                storeValueInStorage("budgets", JSON.stringify(result.budgets))
+            } else {
+                removeFromStorage("budgets")
+            }
             location.href = '../create'
         })
         .catch(error => {

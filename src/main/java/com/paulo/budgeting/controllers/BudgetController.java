@@ -44,7 +44,7 @@ public class BudgetController {
 
     @PostMapping("/save")
     public ResponseEntity<SaveBudgetResponse> save(@RequestBody SaveBudgetRequest request, Principal principal) throws IOException {
-        log.info("{}",request);
+        log.info("{}\n{}", principal.getName(), request);
         Budget budget = budgetService.save(request, principal.getName());
         SaveBudgetResponse saveBudgetResponse = new SaveBudgetResponse(budget.getId());
 
