@@ -291,24 +291,6 @@ function removeNonNumericCharactersFromInputValue(input) {
     input.value = removeNonNumericCharacters(input.value)
 }
 
-function logout() {
-    removeFromStorage("budget");
-    removeFromStorage("tokie");
-    location.href = '../';
-}
-
-function storeValueInStorage(key, value) {
-    localStorage.setItem(key, value)
-}
-
-function removeFromStorage(key) {
-    localStorage.removeItem(key)
-}
-
-function retrieveFromStorage(key) {
-    return localStorage.getItem(key)
-}
-
 function getBudgetName() {
     return budgetName.value ? budgetName.value : getCurrentDateInDDMMYYYYFormat();
 }
@@ -321,66 +303,24 @@ function getCurrentDateInDDMMYYYYFormat() {
     return `${day}-${month}-${year}`;
 }
 
-function save() {
-    // const budgetName = getBudgetName();
-    selectedBudget.expenses = selectedBudget.expenses.map((value, index) => { value.position = index; return value });
-    selectedBudget.incomes = selectedBudget.incomes.map((value, index) => { value.position = index; return value });
-    selectedBudget.title = getBudgetName();
-
-    if (!retrieveFromStorage("tokie")) {
-        storeValueInStorage("budget", JSON.stringify(selectedBudget))
-        location.href = "../login"
-    }
-
-
-    console.log("saving ........")
-    console.log(selectedBudget);
-
-    const url = "../api/v1/budget/save"
-
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": retrieveFromStorage("tokie")
-        },
-        body: JSON.stringify(selectedBudget),
-    })
-        .then(response => {
-            console.log(response.status)
-            // if (response.status === 403) {
-            //     removeFromStorage("tokie");
-            //     storeValueInStorage("budget", requestBody)
-            //     location.href = "../login";
-            // }
-            return response.json();
-        })
-        .then(result => {
-            console.log(result)
-            selectedBudget.id = result.id;
-            updateBudgetInList();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
 function updateBudgetInList() {
     let budgets = JSON.parse(retrieveFromStorage("budgets"));
 
     if (budgets.length > 0) {
-        let tempBudgetList = budgets.filter((budget) => budget.id == selectedBudget.id).map((budget, index) => index);
-        if (tempBudgetList.length > 0) {
-            budgets[tempBudgetList[0]] = selectedBudget;
+        let modifiedBudgetList = budgets
+            .map((budget, index) => { budget.index = index; return budget; })
+            .filter((modifiedBudget) => modifiedBudget.id == selectedBudget.id);
+
+        if (modifiedBudgetList.length > 0) {
+            budgets[modifiedBudgetList[0].index] = selectedBudget;
         } else {
-            budgets.push(selectedBudget);  
+            budgets.push(selectedBudget);
         }
     } else {
         budgets = [selectedBudget]
     }
 
     storeValueInStorage("budgets", JSON.stringify(budgets))
-
     addBudgetsToScreen();
 }
 
@@ -392,19 +332,32 @@ function goBackToBudgets() {
 function createBudgetIcon(budgetInfo) {
     let outerDiv = document.createElement("div");
     let imgDiv = document.createElement("div");
-    let img = document.createElement("img")
-    img.src = "icons/sheet-1-icon.png"
+    let img = document.createElement("img");
+    img.src = "icons/sheet-1-icon.png";
     let p = document.createElement("p");
     p.innerText = budgetInfo.title;
 
-    outerDiv.addEventListener("click", () => {
+    imgDiv.addEventListener("click", () => {
         selectedBudget = budgetInfo;
         renderBudget();
+    });
+
+    let removalDiv = document.createElement("div");
+    let removalImg = document.createElement("img");
+    removalImg.src = "icons/remove-icon.png";
+    removalImg.classList.add("removal-img")
+    removalDiv.appendChild(removalImg);
+
+    removalDiv.addEventListener("click", () => {
+        // selectedBudget = budgetInfo;
+        // renderBudget();
     });
 
     imgDiv.appendChild(img);
     outerDiv.appendChild(imgDiv);
     outerDiv.appendChild(p);
+    outerDiv.appendChild(removalDiv);
+
 
     return outerDiv;
 }
@@ -484,7 +437,74 @@ function addEventListeners() {
     })
 }
 
+function save() {
+    selectedBudget.expenses = selectedBudget.expenses.map((value, index) => { value.position = index; return value });
+    selectedBudget.incomes = selectedBudget.incomes.map((value, index) => { value.position = index; return value });
+    selectedBudget.title = getBudgetName();
+
+    if (!retrieveFromStorage("tokie")) {
+        storeValueInStorage("budget", JSON.stringify(selectedBudget))
+        removeFromStorage("budgets");
+        location.href = "../login"
+    }
+
+    console.log("saving ........")
+    console.log(selectedBudget);
+
+    const url = "../api/v1/budget/save"
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": retrieveFromStorage("tokie")
+        },
+        body: JSON.stringify(selectedBudget),
+    })
+        .then(response => {
+            if (response.status === 403) {
+                removeFromStorage("tokie");
+                storeValueInStorage("budget", JSON.stringify(selectedBudget))
+                removeFromStorage("budgets");
+                location.href = "../login";
+            }
+            return response.json();
+        })
+        .then(result => {
+            console.log(result)
+            selectedBudget.id = result.id;
+            updateBudgetInList();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function logout() {
+    removeFromStorage("budget");
+    removeFromStorage("tokie");
+    location.href = '../';
+}
+
+function storeValueInStorage(key, value) {
+    localStorage.setItem(key, value)
+}
+
+function removeFromStorage(key) {
+    localStorage.removeItem(key)
+}
+
+function retrieveFromStorage(key) {
+    return localStorage.getItem(key)
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     addEventListeners();
-    addBudgetsToScreen();
+    if (retrieveFromStorage("budget")) {
+        selectedBudget = JSON.parse(retrieveFromStorage("budget"));
+        renderBudget();
+        removeFromStorage("budget")
+    } else {
+        addBudgetsToScreen();
+    }
 });

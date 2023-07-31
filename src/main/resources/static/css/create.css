@@ -51,18 +51,32 @@ main {
   height: fit-content;
   padding: 1rem;
 }
-
-#budget-list > div > div {
-  display: flex;
-  margin: auto;
-  justify-content: center;
-}
-
 #budget-list > div:hover {
   cursor: pointer;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   border-radius: 0.5rem;
   margin: 0.1rem;
+}
+#budget-list > div:hover > div:nth-child(1) > img:hover {
+  width: 85px;
+  height: 85px;
+}
+#budget-list > div:hover > div:nth-child(3) > .removal-img {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+#budget-list > div:hover > div:nth-child(3) > .removal-img:hover {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  border-radius: 0.5rem;
+  width: 32px;
+  height: 32px;
+}
+
+#budget-list > div > div {
+  display: flex;
+  margin: auto;
+  justify-content: center;
 }
 
 #budget-list > div > div > img {
@@ -89,6 +103,12 @@ main {
 
 .black {
   color: black;
+}
+
+.removal-img {
+  width: 30px;
+  height: 30px;
+  display: none;
 }
 
 .page-title {
