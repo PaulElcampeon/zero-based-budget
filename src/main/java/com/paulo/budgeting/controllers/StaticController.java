@@ -8,12 +8,7 @@ public class StaticController {
 
     @GetMapping("/")
     public String home() {
-        return "/home.html";
-    }
-
-    @GetMapping("/create")
-    public String create() {
-        return "/create.html";
+        return "/login.html";
     }
 
     @GetMapping("/login")
@@ -21,8 +16,13 @@ public class StaticController {
         return "/login.html";
     }
 
-    @GetMapping("/work-sheet")
-    public String app() {
-        return "/zbb.html";
+    @GetMapping("/create")
+    public String create() {
+        return "/create.html";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        return "/create.html";
     }
 }

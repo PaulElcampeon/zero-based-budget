@@ -5,6 +5,7 @@ import com.paulo.budgeting.domain.MoneyItem;
 import com.paulo.budgeting.domain.enums.MoneyItemType;
 import com.paulo.budgeting.dto.CreateBudgetRequest;
 import com.paulo.budgeting.dto.ExportBudgetRequest;
+import com.paulo.budgeting.dto.RemoveBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetRequest;
 import com.paulo.budgeting.exporters.BudgetToCsvExporter;
 import com.paulo.budgeting.repo.BudgetRepo;
@@ -125,5 +126,10 @@ public class BudgetService {
         budget.getMoneyItems().forEach(moneyItem -> moneyItem.setBudget(budget));
 
         return repo.save(budget);
+    }
+
+    @Transactional
+    public void removeBudget(RemoveBudgetRequest request, String userEmail) {
+        repo.deleteByIdAndUserEmail(request.getBudgetId(), userEmail);
     }
 }

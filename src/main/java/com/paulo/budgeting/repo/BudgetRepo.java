@@ -13,4 +13,6 @@ public interface BudgetRepo extends JpaRepository<Budget, Long> {
 
     boolean existsByUserEmail(String userEmail);
 
+    void deleteByIdAndUserEmail(Long id, String userEmail);
+
 }

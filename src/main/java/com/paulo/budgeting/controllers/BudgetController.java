@@ -4,6 +4,7 @@ import com.paulo.budgeting.domain.Budget;
 import com.paulo.budgeting.domain.MoneyItem;
 import com.paulo.budgeting.domain.enums.MoneyItemType;
 import com.paulo.budgeting.dto.ExportBudgetRequest;
+import com.paulo.budgeting.dto.RemoveBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetResponse;
 import com.paulo.budgeting.service.BudgetService;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -43,12 +45,20 @@ public class BudgetController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<SaveBudgetResponse> save(@RequestBody SaveBudgetRequest request, Principal principal) throws IOException {
+    public ResponseEntity<SaveBudgetResponse> save(@RequestBody SaveBudgetRequest request, Principal principal) {
         log.info("{}\n{}", principal.getName(), request);
         Budget budget = budgetService.save(request, principal.getName());
         SaveBudgetResponse saveBudgetResponse = new SaveBudgetResponse(budget.getId());
 
         return ResponseEntity.ok().body(saveBudgetResponse);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody RemoveBudgetRequest request, Principal principal) {
+        log.info("{}\n{}", principal.getName(), request);
+        budgetService.removeBudget(request, principal.getName());
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/test")

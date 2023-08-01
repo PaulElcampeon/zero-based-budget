@@ -34,9 +34,8 @@ public class SecurityConfig {
             "/create",
             "/login",
             "/login.html",
-            "/home.html",
+            "/about.html",
             "/create.html",
-            "/generated.html",
             "/api/v1/auth/authenticate",
             "/api/v1/user/create"
     };
