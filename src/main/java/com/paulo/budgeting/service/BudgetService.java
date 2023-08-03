@@ -3,6 +3,7 @@ package com.paulo.budgeting.service;
 import com.paulo.budgeting.domain.Budget;
 import com.paulo.budgeting.domain.MoneyItem;
 import com.paulo.budgeting.domain.enums.MoneyItemType;
+import com.paulo.budgeting.dto.BudgetDto;
 import com.paulo.budgeting.dto.CreateBudgetRequest;
 import com.paulo.budgeting.dto.ExportBudgetRequest;
 import com.paulo.budgeting.dto.RemoveBudgetRequest;
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,11 @@ public class BudgetService {
 
     private final MoneyItemRepo moneyItemRepo;
     private final BudgetToCsvExporter budgetToCsvExporter;
+
+    private static final BigDecimal INCOME_MAX = BigDecimal.valueOf(50000);
+    private static final BigDecimal EXPENSE_MAX = BigDecimal.valueOf(10000);
+    private static final int TITLE_MAX_LENGTH = 20;
+
 
     public Budget createBudget(CreateBudgetRequest request, String email) {
         Budget budget = new Budget();
@@ -80,6 +87,8 @@ public class BudgetService {
 
     @Transactional
     public Budget save(SaveBudgetRequest request, String email) {
+        validateBudget(BudgetDto.builder().title(request.getTitle()).incomes(request.getIncomes()).expenses(request.getExpenses()).build());
+
         Budget budget;
         if (request.getId().filter(id -> id != 0).isPresent()) {
             Long id = request.getId().get();
@@ -131,5 +140,25 @@ public class BudgetService {
     @Transactional
     public void removeBudget(RemoveBudgetRequest request, String userEmail) {
         repo.deleteByIdAndUserEmail(request.getBudgetId(), userEmail);
+    }
+
+    public void validateBudget(BudgetDto budgetDto) {
+        budgetDto.getIncomes().forEach(moneyItemDto -> {
+            if (moneyItemDto.getValue().compareTo(INCOME_MAX) >= 1) {
+                throw new RuntimeException("Income exceeded max value");
+            }
+            if (moneyItemDto.getTitle().length() >= TITLE_MAX_LENGTH) {
+                throw new RuntimeException("Title exceeded max length");
+            }
+        });
+
+        budgetDto.getExpenses().forEach(moneyItemDto -> {
+            if (moneyItemDto.getValue().compareTo(EXPENSE_MAX) >= 1) {
+                throw new RuntimeException("Expense exceeded max value");
+            }
+            if (moneyItemDto.getTitle().length() >= TITLE_MAX_LENGTH) {
+                throw new RuntimeException("Title exceeded max length");
+            }
+        });
     }
 }

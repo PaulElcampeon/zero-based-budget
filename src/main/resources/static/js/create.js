@@ -97,8 +97,10 @@ function renderExpenses() {
         minus.addEventListener("click", (event) => removeExpense(i))
     }
 
-    expenseList.appendChild(expenseInputRow)
-    expenseList.appendChild(divExpenseAddBtn)
+    if (shouldAddAnotherExpense()) {
+        expenseList.appendChild(expenseInputRow)
+        expenseList.appendChild(divExpenseAddBtn)
+    }
 
     expenseList.scrollTop = expenseList.scrollHeight;
 }
@@ -187,8 +189,10 @@ function renderIncomes() {
         minus.addEventListener("click", (event) => removeIncome(i))
     }
 
-    incomeList.appendChild(incomeInputRow)
-    incomeList.appendChild(divIncomeAddBtn)
+    if (shouldAddAnotherIncome()) {
+        incomeList.appendChild(incomeInputRow)
+        incomeList.appendChild(divIncomeAddBtn)
+    }
 
     incomeList.scrollTop = incomeList.scrollHeight;
 }
@@ -205,8 +209,8 @@ function updateIncome(data) {
 function addIncome() {
     const incomeNameInput = document.getElementById("input-income-title");
 
-    const incomeName = incomeNameInput.value.trim();
-    const incomeValue = parseFloat(incomeValueInput.value);
+    const incomeName = incomeNameInput.value.trim().length > 20 ? incomeNameInput.value.trim().substring(0, 20) : incomeNameInput.value.trim();
+    const incomeValue = parseFloat(incomeValueInput.value) > 50000 ? 50000 : parseFloat(incomeValueInput.value);
 
     if (incomeName !== "" && !isNaN(incomeValue)) {
         const income = {
@@ -223,11 +227,35 @@ function addIncome() {
     }
 }
 
+function hideIncomeAddBtn() {
+    incomeAddBtn.style.display = "none";
+}
+
+function showIncomeAddBtn() {
+    incomeAddBtn.style.display = "block";
+}
+
+function shouldAddAnotherIncome() {
+    return selectedBudget.incomes.length < 4;
+}
+
+function hideExpenseAddBtn() {
+    expenseAddBtn.style.display = "none";
+}
+
+function showExpenseAddBtn() {
+    expenseAddBtn.style.display = "block";
+}
+
+function shouldAddAnotherExpense() {
+    return selectedBudget.expenses.length < 18;
+}
+
 function addExpense() {
     const expenseNameInput = document.getElementById("input-expense-title");
 
-    const expenseName = expenseNameInput.value.trim();
-    const expenseValue = parseFloat(expenseValueInput.value);
+    const expenseName = expenseNameInput.value.trim().length > 20 ? expenseNameInput.value.trim().substring(0, 20) : expenseNameInput.value.trim();
+    const expenseValue = parseFloat(expenseValueInput.value) > 10000 ? 10000.00 : parseFloat(expenseValueInput.value);
 
     if (expenseName !== "" && !isNaN(expenseValue)) {
         const expense = {
