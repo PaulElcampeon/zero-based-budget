@@ -368,6 +368,34 @@ function goBackToBudgets() {
     hideBudgetSheet();
 }
 
+function exportToCsv() {
+    const url = "../api/v1/budget/export"
+
+    showLoadingSpinner();
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": retrieveFromStorage("tokie")
+        },
+        body: JSON.stringify(selectedBudget),
+    })
+        .then(res => res.blob())
+        .then(data => {
+            if (data.type === "text/csv" && data.size > 0) {
+                let a = document.createElement("a");
+                a.href = window.URL.createObjectURL(data);
+                a.download = "data";
+                a.click();
+            } else {
+                showEmptyMessage();
+            }
+        })
+        .catch(err => console.log('Request Failed', err))
+        .finally(() => hideLoadingSpinner())
+}
+
 function createBudgetIcon(budgetInfo, index) {
     let outerDiv = document.createElement("div");
     let imgDiv = document.createElement("div");
@@ -469,6 +497,8 @@ function addEventListeners() {
     logoutBtn.addEventListener("click", logout);
 
     backToBudgetsBtn.addEventListener("click", goBackToBudgets);
+
+    document.getElementById("export-btn").addEventListener("click", exportToCsv)
 
     document.getElementById("page-title-id").addEventListener("click", (event) => {
         location.href = "../";

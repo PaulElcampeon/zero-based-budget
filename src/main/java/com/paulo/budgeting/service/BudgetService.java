@@ -10,7 +10,6 @@ import com.paulo.budgeting.dto.RemoveBudgetRequest;
 import com.paulo.budgeting.dto.SaveBudgetRequest;
 import com.paulo.budgeting.exporters.BudgetToCsvExporter;
 import com.paulo.budgeting.repo.BudgetRepo;
-import com.paulo.budgeting.repo.MoneyItemRepo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -28,8 +26,6 @@ import java.util.stream.Stream;
 public class BudgetService {
 
     private final BudgetRepo repo;
-
-    private final MoneyItemRepo moneyItemRepo;
     private final BudgetToCsvExporter budgetToCsvExporter;
 
     private static final BigDecimal INCOME_MAX = BigDecimal.valueOf(50000);
@@ -58,20 +54,22 @@ public class BudgetService {
     }
 
     public String exportAsCsv(ExportBudgetRequest request) {
-        Budget budget = Budget.builder()
-                .title(request.getBudgetName())
-                .expenses(request
-                        .getExpenses()
-                        .stream()
-                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
-                .incomes(request
-                        .getIncomes()
-                        .stream()
-                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
-                .build();
+//        Budget budget = Budget.builder()
+//                .title(request.getBudgetName())
+//                .expenses(request
+//                        .getExpenses()
+//                        .stream()
+//                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
+//                .incomes(request
+//                        .getIncomes()
+//                        .stream()
+//                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
+//                .build();
+
+        BudgetDto budgetDto = BudgetDto.builder().incomes(request.getIncomes()).expenses(request.getExpenses()).title(request.getBudgetName()).build();
 
         try {
-            return budgetToCsvExporter.export(budget);
+            return budgetToCsvExporter.export(budgetDto);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,7 +77,7 @@ public class BudgetService {
 
     public String exportAsCsv(Budget budget) {
         try {
-            return budgetToCsvExporter.export(budget);
+            return budgetToCsvExporter.export(budget.mapToDto());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

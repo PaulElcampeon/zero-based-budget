@@ -1,6 +1,7 @@
 package com.paulo.budgeting.exporters;
 
 import com.paulo.budgeting.domain.Budget;
+import com.paulo.budgeting.dto.BudgetDto;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -14,7 +15,7 @@ import java.io.StringWriter;
 public class BudgetToCsvExporter implements Exporter<String> {
 
     @Override
-    public String export(Budget budget) throws IOException {
+    public String export(BudgetDto budgetDto) throws IOException {
         StringWriter sw = new StringWriter();
 
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
@@ -25,10 +26,10 @@ public class BudgetToCsvExporter implements Exporter<String> {
             printer.printRecord("Income", "");
             printer.printRecord("", "");
 
-            budget.getIncomes()
-                    .forEach((expense1) -> {
+            budgetDto.getIncomes()
+                    .forEach(income -> {
                         try {
-                            printer.printRecord(expense1.getTitle(), expense1.getValue().toString());
+                            printer.printRecord(income.getTitle(), income.getValue().toString());
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -38,7 +39,7 @@ public class BudgetToCsvExporter implements Exporter<String> {
             printer.printRecord("Expense", "");
             printer.printRecord("", "");
 
-            budget.getExpenses()
+            budgetDto.getExpenses()
                     .forEach((expense1) -> {
                         try {
                             printer.printRecord(expense1.getTitle(), expense1.getValue().toString());

@@ -26,8 +26,6 @@ public class BudgetServiceTest {
     @Mock
     private BudgetRepo repo;
     @Mock
-    private MoneyItemRepo moneyItemRepo;
-    @Mock
     private BudgetToCsvExporter budgetToCsvExporter;
 
     @Test

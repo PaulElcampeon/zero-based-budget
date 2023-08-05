@@ -40,7 +40,7 @@ public class BudgetController {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "text/csv; charset=UTF-8")
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.csv\"")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+request.getBudgetName()+".csv\"")
                 .body(csvAsString);
     }
 
