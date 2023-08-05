@@ -23,8 +23,10 @@ public class BudgetToCsvExporter implements Exporter<String> {
                 .build();
 
         try (final CSVPrinter printer = new CSVPrinter(sw, csvFormat)) {
-            printer.printRecord("Income", "");
-            printer.printRecord("", "");
+            printer.printRecord(budgetDto.getTitle());
+            printer.printRecord("");
+            printer.printRecord("Income");
+            printer.printRecord("");
 
             budgetDto.getIncomes()
                     .forEach(income -> {
@@ -35,9 +37,9 @@ public class BudgetToCsvExporter implements Exporter<String> {
                         }
                     });
 
-            printer.printRecord("", "");
-            printer.printRecord("Expense", "");
-            printer.printRecord("", "");
+            printer.printRecord("");
+            printer.printRecord("Expense");
+            printer.printRecord("");
 
             budgetDto.getExpenses()
                     .forEach((expense1) -> {

@@ -54,20 +54,7 @@ public class BudgetService {
     }
 
     public String exportAsCsv(ExportBudgetRequest request) {
-//        Budget budget = Budget.builder()
-//                .title(request.getBudgetName())
-//                .expenses(request
-//                        .getExpenses()
-//                        .stream()
-//                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
-//                .incomes(request
-//                        .getIncomes()
-//                        .stream()
-//                        .map(moneyItemDto -> MoneyItem.builder().position(moneyItemDto.getPosition()).value(moneyItemDto.getValue()).title(moneyItemDto.getTitle()).build()).collect(Collectors.toList()))
-//                .build();
-
-        BudgetDto budgetDto = BudgetDto.builder().incomes(request.getIncomes()).expenses(request.getExpenses()).title(request.getBudgetName()).build();
-
+        BudgetDto budgetDto = BudgetDto.builder().incomes(request.getIncomes()).expenses(request.getExpenses()).title(request.getTitle()).build();
         try {
             return budgetToCsvExporter.export(budgetDto);
         } catch (IOException e) {

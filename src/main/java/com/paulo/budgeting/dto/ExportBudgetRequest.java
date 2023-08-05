@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExportBudgetRequest {
-    private String budgetName;
+    private String title;
     private List<MoneyItemDto> expenses;
     private List<MoneyItemDto> incomes;
 }

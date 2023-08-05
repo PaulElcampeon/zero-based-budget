@@ -368,34 +368,6 @@ function goBackToBudgets() {
     hideBudgetSheet();
 }
 
-function exportToCsv() {
-    const url = "../api/v1/budget/export"
-
-    showLoadingSpinner();
-
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": retrieveFromStorage("tokie")
-        },
-        body: JSON.stringify(selectedBudget),
-    })
-        .then(res => res.blob())
-        .then(data => {
-            if (data.type === "text/csv" && data.size > 0) {
-                let a = document.createElement("a");
-                a.href = window.URL.createObjectURL(data);
-                a.download = "data";
-                a.click();
-            } else {
-                showEmptyMessage();
-            }
-        })
-        .catch(err => console.log('Request Failed', err))
-        .finally(() => hideLoadingSpinner())
-}
-
 function createBudgetIcon(budgetInfo, index) {
     let outerDiv = document.createElement("div");
     let imgDiv = document.createElement("div");
@@ -587,6 +559,36 @@ function save() {
         .finally(() => {
             hideLoadingSpinner();
         })
+}
+
+function exportToCsv() {
+    selectedBudget.title = getBudgetName();
+
+    const url = "../api/v1/budget/export"
+
+    showLoadingSpinner();
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            // "Authorization": retrieveFromStorage("tokie")
+        },
+        body: JSON.stringify(selectedBudget),
+    })
+        .then(res => res.blob())
+        .then(data => {
+            if (data.type === "text/csv" && data.size > 0) {
+                let a = document.createElement("a");
+                a.href = window.URL.createObjectURL(data);
+                a.download = "data";
+                a.click();
+            } else {
+                showEmptyMessage();
+            }
+        })
+        .catch(err => console.log('Request Failed', err))
+        .finally(() => hideLoadingSpinner())
 }
 
 function logout() {
